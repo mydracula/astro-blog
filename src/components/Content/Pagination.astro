@@ -1,0 +1,151 @@
+---
+const { totalCount, currentPage } = Astro.props
+
+const getPages = () => {
+  if (totalCount < 4) return new Array(totalCount).fill(1).map((num, index) => num + index)
+  const startDiff = Math.abs(currentPage - 1)
+  const endDiff = Math.abs(currentPage - totalCount)
+  const diff = startDiff <= endDiff ? startDiff : endDiff
+  if (diff == 0) {
+    if (currentPage === totalCount) return [1, '...', totalCount - 1, totalCount]
+    return [1, 2, '...', totalCount]
+  }
+  if (diff == 1) {
+    if (totalCount <= 4) return Array.from({ length: totalCount }, (v, i) => i + 1)
+    if (totalCount - 1 === currentPage) return [1, '...', currentPage - 1, currentPage, totalCount]
+    return [1, 2, 3, '...', totalCount]
+  }
+  if (diff == 2) {
+    if (totalCount <= 5) {
+      if ((1 + totalCount) / 2 === currentPage) return Array.from({ length: totalCount }, (v, i) => i + 1)
+    }
+    if (currentPage + 1 === totalCount - 1) return [1, '...', currentPage - 1, currentPage, currentPage + 1, totalCount]
+    if (currentPage - 1 === 1 + 1) return [1, currentPage - 1, currentPage, currentPage + 1, '...', totalCount]
+  }
+  if (diff > 2) {
+    if (totalCount <= 4) return [1, '...', totalCount - 1, totalCount]
+    return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalCount]
+  }
+}
+---
+
+<nav class="pagination">
+  <div class="inner">
+    {
+      currentPage != 1 && (
+        <a class="prev" href={`/page/${currentPage - 1}/`}>
+          <i class="ic i-angle-left" aria-label="上一页" />
+        </a>
+      )
+    }
+
+    {
+      getPages().map((item) =>
+        currentPage === item || item === '...' ? (
+          <span class:list={[{ 'page-number': item !== '...', current: currentPage === item, space: item === '...' }]}>{item}</span>
+        ) : (
+          <a class="page-number" href={item === 1 ? '/' : `/page/${item}/`}>
+            {item}
+          </a>
+        )
+      )
+    }
+
+    {
+      currentPage != totalCount && (
+        <a class="next" href={`/page/${currentPage + 1}/`}>
+          <i class="ic i-angle-right" aria-label="下一页" />
+        </a>
+      )
+    }
+  </div>
+</nav>
+
+<style lang="scss">
+  %page-number-basic {
+    display: inline-block;
+    margin: 0 0.5rem;
+    padding: 0 0.75rem;
+    position: relative;
+    border-radius: 0.3125rem;
+
+    @include mobile() {
+      margin: 0 0.3125rem;
+    }
+  }
+
+  .pagination {
+    width: 100%;
+    padding: 1.25rem 3.125rem;
+    text-align: center;
+    display: inline-block;
+    color: var(--grey-5);
+
+    @include mobile() {
+      padding: 1.25rem 0.625rem;
+    }
+
+    .inner {
+      width: auto;
+      border-radius: 0.9375rem;
+      font-size: 0;
+      span,
+      a {
+        font-size: 1rem;
+      }
+    }
+
+    .prev,
+    .next,
+    .page-number {
+      @extend %page-number-basic;
+
+      @include the-transition();
+
+      &:hover {
+        @extend %color-btn;
+      }
+    }
+
+    .space {
+      @extend %page-number-basic;
+      margin: 0;
+      padding: 0;
+    }
+
+    .prev {
+      margin-left: 0;
+    }
+
+    .next {
+      margin-right: 0;
+    }
+
+    .page-number.current {
+      @extend %color-btn;
+
+      &:hover {
+        box-shadow: 0 0 0.3125rem var(--primary-color);
+      }
+    }
+  }
+
+  /*+mobile() {
+  .pagination {
+    border-top: none;
+  }
+
+  .pagination {
+    .prev, .next, .page-number {
+      border-bottom: .0625rem solid var(--grey-3);
+      border-top: 0;
+      margin-bottom: .625rem;
+      padding: 0 .625rem;
+
+      &:hover {
+        border-bottom-color: var(--color-red);
+      }
+    }
+  }
+}*/
+</style>

@@ -1,0 +1,96 @@
+---
+const { menu, sub } = Astro.props
+---
+
+<ul class={sub ? 'submenu' : 'menu'}>
+  {
+    menu.map((item) => {
+      if (item.children) {
+        const path = item.path === '/' ? 'javascript:void(0)' : item.path
+        return (
+          <li class="item dropdown">
+            <a rel="section" href={path}>
+              <i class={`ic i-${item.icon}`} />
+              {item.name}
+            </a>
+            <Astro.self menu={item.children} sub={true} />
+          </li>
+        )
+      } else {
+        const { name, icon, path } = item
+        const url = sub && path === '/' ? 'javascript:void(0)' : path
+        return (
+          <li class="item">
+            <a href={url} rel="section">
+              <i class={`ic i-${icon}`} />
+              {name}
+            </a>
+          </li>
+        )
+      }
+    })
+  }
+</ul>
+
+<style lang="scss">
+  .menu {
+    padding: 1.25rem;
+    margin: 0;
+
+    background-color: transparent;
+
+    .item {
+      border-radius: 0.9375rem;
+      margin-bottom: 0.625rem;
+      display: block;
+      color: var(--grey-5);
+      @include the-transition();
+
+      a {
+        color: inherit;
+        display: block;
+        line-height: 3;
+      }
+
+      .submenu {
+        display: none;
+        padding: 0;
+        @extend .slide-down-in;
+      }
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+        color: inherit;
+
+        .submenu {
+          display: block;
+        }
+      }
+
+      .ic {
+        margin-right: 0.625rem;
+      }
+
+      &.active {
+        @extend %color-btn;
+
+        &:hover {
+          box-shadow: 0 0 0.75rem var(--color-pink);
+          color: var(--grey-0);
+        }
+
+        .item {
+          color: currentColor;
+        }
+      }
+
+      &.expand {
+        background-color: rgba(0, 0, 0, 0.05);
+
+        .submenu {
+          display: block;
+        }
+      }
+    }
+  }
+</style>

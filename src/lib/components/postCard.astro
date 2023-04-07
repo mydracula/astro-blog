@@ -1,0 +1,206 @@
+---
+import { fontSizeSmall } from '$lib/config/variables'
+---
+
+<article class="item show">
+  <div class="cover">
+    <a href="/webbuild/nginx-modsec/" itemprop="url" title="使用ModSecurity保护Nginx站点" data-pjax-state=""
+      ><img
+        data-src="https://gitee.com/zkz0/image/raw/master/img/img(10).webp"
+        alt="article cover"
+        src="https://gitee.com/zkz0/image/raw/master/img/img(10).webp"
+        data-loaded="true"
+        class="lozaded"
+      /></a
+    >
+  </div><div class="info">
+    <div class="meta">
+      <span class="item" title="创建时间：2023-01-20 21:27:18"
+        ><span class="icon"><i class="ic i-calendar"></i></span><time itemprop="dateCreated datePublished" datetime="2023-01-20T21:27:18+08:00">2023-01-20</time></span
+      ><span class="item" title="本文字数"><span class="icon"><i class="ic i-pen"></i></span><span>3.3k</span><span class="text">字</span></span><span class="item" title="阅读时长"
+        ><span class="icon"><i class="ic i-clock"></i></span><span>3 分钟</span></span
+      >
+    </div><h3><a href="/webbuild/nginx-modsec/" itemprop="url" title="使用ModSecurity保护Nginx站点" data-pjax-state="">使用ModSecurity保护Nginx站点</a></h3><div class="excerpt">
+      # 使用 ModSecurity 保护 Nginx 站点 ModSecurity 是一个开源的跨平台 WAF (WEB 应用程序防火墙) 本次给 Nginx 安装 ModSecurity WAF 并使用 OWASP ModSecurity 规则集，基于 Ubuntu 22 (jammy) 和宝塔面板
+      命令的默认执行位置都为 ~(root目录) ，且均使用 root 用户执行 在执行下列步骤前，请编译安装 nginx 1.23 或更高版本 # 准备工作 执行下列指令安装前置包: apt install g++ flex bison curl apache2-dev
+      doxygen lib
+    </div><div class="meta footer"><span><a href="/categories/webbuild/" itemprop="url" title="网站建设" data-pjax-state=""><i class="ic i-flag"></i>网站建设</a></span></div><a
+      href="/webbuild/nginx-modsec/"
+      itemprop="url"
+      title="使用ModSecurity保护Nginx站点"
+      class="btn"
+      data-pjax-state="">more...</a
+    >
+  </div>
+</article>
+
+<style lang="scss" define:vars={{ fontSizeSmall }}>
+  // @import '../../styles/mixin';
+  // @import '../../styles/animate';
+  .item {
+    position: relative;
+    color: inherit;
+    width: calc(50% - 2rem);
+    min-width: calc(50% - 2rem);
+    height: 14rem;
+    margin: 1rem;
+    opacity: 0;
+
+    &.show {
+      @extend .slide-up-big-in;
+      opacity: 1;
+    }
+
+    @include mobile() {
+      width: calc(100% - 1rem) !important;
+      min-width: calc(100% - 1rem) !important;
+      margin: 1rem 0.5rem !important;
+    }
+  }
+
+  .item {
+    @extend .item;
+
+    display: flex;
+    border-radius: 0.625rem;
+
+    width: calc(100% - 2rem);
+    min-width: calc(100% - 2rem);
+
+    @include shadow-box(false);
+
+    @include the-transition();
+
+    @include mobile() {
+      flex-direction: column;
+      height: fit-content;
+      max-height: fit-content;
+    }
+
+    &:hover {
+      box-shadow: 0 0 2rem var(--box-bg-shadow);
+
+      .cover img {
+        transform: scale(1.05) rotate(1deg);
+      }
+    }
+  }
+
+  .cover {
+    width: 50%;
+    margin-right: 1.5rem;
+    clip-path: polygon(0 0, 92% 0%, 100% 100%, 0% 100%);
+    border-radius: 0.625rem 0 0 0.625rem;
+    overflow: hidden;
+
+    @include mobile() {
+      width: 100%;
+      height: 14rem;
+      margin: auto;
+      clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+      border-radius: 0.625rem 0.625rem 0 0;
+    }
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      @include the-transition();
+    }
+  }
+
+  .info {
+    position: relative;
+    width: 50%;
+    padding: 1rem 1.5rem 3rem 0;
+    perspective: 62.5rem;
+
+    @include mobile() {
+      width: 100%;
+      height: 14rem;
+      padding: 0 1rem 3rem;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: flex-end;
+      margin: 0;
+
+      @include mobile() {
+        .item:not(:first-child) {
+          display: none;
+        }
+      }
+    }
+
+    h3 {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      margin: 0.625rem 0;
+      color: var(--primary-color);
+    }
+
+    .excerpt {
+      overflow: hidden;
+      font-size: var(--fontSizeSmall);
+      max-height: 5rem;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .item:nth-child(even) {
+    flex-direction: row-reverse;
+
+    @include mobile() {
+      flex-direction: column;
+    }
+
+    .cover {
+      margin-right: auto;
+      margin-left: 1.5rem;
+      clip-path: polygon(0 0%, 100% 0%, 100% 100%, 8% 100%);
+      border-radius: 0 0.625rem 0.625rem 0;
+
+      @include mobile() {
+        width: 100%;
+        margin: auto;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 92%);
+        border-radius: 0.625rem 0.625rem 0 0;
+      }
+    }
+
+    .info {
+      padding: 1rem 0 3rem 1.5rem;
+
+      @include mobile() {
+        padding: 0 1rem 3rem;
+      }
+
+      .meta {
+        justify-content: flex-start;
+      }
+    }
+
+    .btn {
+      left: 0;
+      right: auto;
+      border-radius: 0 1rem;
+      background-image: linear-gradient(to right, var(--color-orange) 0, var(--color-pink) 100%);
+    }
+
+    .meta.footer {
+      right: 0.5rem;
+      justify-content: flex-start;
+    }
+
+    &:hover {
+      .cover img {
+        transform: scale(1.05) rotate(-1deg);
+      }
+    }
+  }
+</style>

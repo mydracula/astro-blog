@@ -1,0 +1,22 @@
+---
+import BaseHead from '@components/BaseHead.astro'
+import GlobalContainer from '@components/GlobalContainer.astro'
+import Header from '@components/Header/Index.astro'
+import Content from '@components/Content/Index.astro'
+import Loading from '@components/Loading.astro'
+
+const { page } = Astro.props
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={'title'} description={'description'} image={'/avatar.png'} />
+    <GlobalContainer>
+      <Loading />
+      <div id="container">
+        <Header />
+        <Content page={page} />
+      </div>
+    </GlobalContainer>
+  </head>
+</html>

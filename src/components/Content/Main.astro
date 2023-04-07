@@ -1,0 +1,6 @@
+---
+import PostLIst from './PostLIst.astro'
+const { page } = Astro.props
+---
+
+<PostLIst posts={page.data} totalCount={page.lastPage} currentPage={page.currentPage} currentUrl={page.url.current} previousUrl={page.url.prev} nextUrl={page.url.next} />

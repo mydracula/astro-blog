@@ -1,0 +1,19 @@
+---
+import PostCard from './PostCard.astro'
+import { fontSizeSmall } from '$lib/config/variables'
+const { posts } = Astro.props
+---
+
+<div class="index wrap">
+  <div class="segments posts">
+    {posts.map((post) => <PostCard post={post} />)}
+  </div>
+</div>
+
+<style lang="scss" define:vars={{ fontSizeSmall }}>
+  // @import '../../styles/mixin';
+  // @import '../../styles/animate';
+  .segments {
+    @include the-flex();
+  }
+</style>

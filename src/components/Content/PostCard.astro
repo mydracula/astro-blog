@@ -1,0 +1,43 @@
+---
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import getWordCount from '@utils/getWordCount'
+dayjs.extend(utc)
+const { post } = Astro.props
+
+let { words, time } = { words: 0, time: '' }
+if (post.frontmatter.rawContent) {
+  ;({ words, time } = getWordCount(post.frontmatter.rawContent))
+} else if (!post.frontmatter.isMdx) {
+  ;({ words, time } = getWordCount(post.rawContent()))
+}
+---
+
+<article class="item">
+  <div class="cover">
+    <a href="/notice/" itemprop="url" title={post.frontmatter.title}> <img data-src="https://gitee.com/zkz0/image/raw/master/img/img(96).webp" alt="article cover" /></a>
+  </div>
+  <div class="info">
+    <div class="meta">
+      <span class="item" title={`创建时间：${post.frontmatter.date}`}>
+        <span class="icon"><i class="ic i-calendar"></i></span>
+        <time itemprop="dateCreated datePublished" datetime={post.frontmatter.date}>{dayjs.utc(post.frontmatter.date).format('YYYY-MM-DD')}</time>
+      </span>
+      <span class="item" title="本文字数">
+        <span class="icon">
+          <i class="ic i-pen"></i>
+        </span>
+        <span>{words}</span>
+        <span class="text">字</span>
+      </span>
+      <span class="item" title="阅读时长">
+        <span class="icon">
+          <i class="ic i-clock"></i>
+        </span>
+        <span>{time}</span>
+      </span>
+    </div><h3><a href="/notice/" itemprop="url" title={post.frontmatter.title}>{post.frontmatter.title}</a></h3><div class="excerpt">
+      {post.frontmatter.description || post.rawContent()}
+    </div><a href="/notice/" itemprop="url" title={post.frontmatter.title} class="btn">more...</a>
+  </div>
+</article>

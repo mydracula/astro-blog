@@ -1,0 +1,400 @@
+---
+import config from '$lib/config'
+import '../../styles/global.scss'
+
+const _vendor_font = () => {
+  const { font } = config
+  if (!font || !font.enable) return ''
+  const fontDisplay = '&display=swap'
+  const fontSubset = '&subset=latin,latin-ext'
+  const fontStyles = ':300,300italic,400,400italic,700,700italic'
+  const fontHost = 'https://fonts.loli.net'
+  let fontFamilies = ['global', 'logo', 'title', 'headings', 'posts', 'codes'].map((item) => {
+    if (font[item] && font[item].family && font[item].external) {
+      return font[item].family + fontStyles
+    }
+    return ''
+  })
+  fontFamilies = fontFamilies.filter((item) => item !== '')
+  fontFamilies = [...new Set(fontFamilies)]
+  fontFamilies = fontFamilies.join('|')
+
+  return `${fontHost}/css?family=${fontFamilies.concat(fontDisplay, fontSubset)}`
+}
+const fontUrl = _vendor_font()
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {fontUrl && <link rel="stylesheet" href={fontUrl} />}
+    <meta name="viewport" content="width=device-width" /><meta name="generator" content={Astro.generator} />
+    <title>Astro</title></head
+  >
+
+  <body>
+    <div id="app">
+      <div id="brand">
+        <div class="pjax">
+          <a href="/" class="logo" rel="start" data-pjax-state=""><p class="artboard">Yume Shoka</p><h1 itemprop="name headline" class="title">2222</h1></a><p class="meta" itemprop="description">
+            = 1111 =
+          </p>
+        </div>
+      </div>
+      <div id="waves">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+          <defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs>
+          <g class="parallax">
+            <use xlink:href="#gentle-wave" x="48" y="0"></use>
+            <use xlink:href="#gentle-wave" x="48" y="3"></use>
+            <use xlink:href="#gentle-wave" x="48" y="5"></use>
+            <use xlink:href="#gentle-wave" x="48" y="7"></use>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <style lang="scss">
+      .artboard {
+        font-family: 'Fredericka the Great', Mulish, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      }
+      #loading {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 9999;
+      }
+
+      #loading {
+        background-color: var(--grey-1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .loa {
+        --loa-width: 45px;
+        position: relative;
+        width: var(--loa-width);
+        height: var(--loa-width);
+        transform: rotate(75deg);
+      }
+
+      .loa .bar {
+        position: absolute;
+        animation: 1.5s cubic-bezier(0.645, 0.045, 0.355, 1) infinite;
+      }
+
+      .loa .bar:first-child {
+        bottom: calc(var(--loa-width) / 3);
+        width: calc(var(--loa-width) / 3);
+        height: 100%;
+        background: #0984e3;
+        transform: scaleY(0);
+        transform-origin: bottom;
+        animation-name: slide-bottom-top;
+      }
+
+      .loa .bar:nth-child(2) {
+        left: calc(var(--loa-width) / 3);
+        width: 100%;
+        height: calc(var(--loa-width) / 3);
+        background: #d63031;
+        transform: scaleX(0);
+        transform-origin: left;
+        animation-name: slide-left-right;
+      }
+
+      .loa .bar:nth-child(3) {
+        top: calc(var(--loa-width) / 3);
+        right: 0;
+        width: calc(var(--loa-width) / 3);
+        height: 100%;
+        background: #fdcb6e;
+        transform: scaleY(0);
+        transform-origin: top;
+        animation-name: slide-top-bottom;
+      }
+
+      .loa .bar:nth-child(4) {
+        right: calc(var(--loa-width) / 3);
+        bottom: 0;
+        width: 100%;
+        height: calc(var(--loa-width) / 3);
+        background: #00b894;
+        transform: scaleX(0);
+        transform-origin: right;
+        animation-name: slide-right-left;
+      }
+
+      @keyframes slide-bottom-top {
+        50% {
+          transform: scaleY(1);
+          transform-origin: bottom;
+        }
+
+        50.1% {
+          transform-origin: top;
+        }
+
+        to {
+          transform-origin: top;
+        }
+      }
+
+      @keyframes slide-left-right {
+        50% {
+          transform: scaleX(1);
+          transform-origin: left;
+        }
+
+        50.1% {
+          transform-origin: right;
+        }
+
+        to {
+          transform-origin: right;
+        }
+      }
+
+      @keyframes slide-top-bottom {
+        50% {
+          transform: scaleY(1);
+          transform-origin: top;
+        }
+
+        50.1% {
+          transform-origin: bottom;
+        }
+
+        to {
+          transform-origin: bottom;
+        }
+      }
+
+      @keyframes slide-right-left {
+        50% {
+          transform: scaleX(1);
+          transform-origin: right;
+        }
+
+        50.1% {
+          transform-origin: left;
+        }
+
+        to {
+          transform-origin: left;
+        }
+      }
+    </style>
+    <script>
+      import anime from 'animejs'
+      import config from '$lib/config'
+      Object.assign(HTMLElement.prototype, {
+        createChild: function (tag, obj, positon) {
+          var child = document.createElement(tag)
+          Object.assign(child, obj)
+          switch (positon) {
+            case 'after':
+              this.insertAfter(child)
+              break
+            case 'replace':
+              this.innerHTML = ''
+            default:
+              this.appendChild(child)
+          }
+          return child
+        },
+        wrap: function (obj) {
+          var box = document.createElement('div')
+          Object.assign(box, obj)
+          this.parentNode.insertBefore(box, this)
+          this.parentNode.removeChild(this)
+          box.appendChild(this)
+        },
+        height: function (h) {
+          if (h) {
+            this.style.height = typeof h == 'number' ? h + 'rem' : h
+          }
+          return this.getBoundingClientRect().height
+        },
+        width: function (w) {
+          if (w) {
+            this.style.width = typeof w == 'number' ? w + 'rem' : w
+          }
+          return this.getBoundingClientRect().width
+        },
+        top: function () {
+          return this.getBoundingClientRect().top
+        },
+        left: function () {
+          return this.getBoundingClientRect().left
+        },
+        attr: function (type, value) {
+          if (value === null) {
+            return this.removeAttribute(type)
+          }
+
+          if (value) {
+            this.setAttribute(type, value)
+            return this
+          } else {
+            return this.getAttribute(type)
+          }
+        },
+        insertAfter: function (element) {
+          var parent = this.parentNode
+          if (parent.lastChild == this) {
+            parent.appendChild(element)
+          } else {
+            parent.insertBefore(element, this.nextSibling)
+          }
+        },
+        display: function (d) {
+          if (d == null) {
+            return this.style.display
+          } else {
+            this.style.display = d
+            return this
+          }
+        },
+        child: function (selector) {
+          return $(selector, this)
+        },
+        find: function (selector) {
+          return $.all(selector, this)
+        },
+        _class: function (type, className, display) {
+          var classNames = className.indexOf(' ') ? className.split(' ') : [className]
+          var that = this
+          classNames.forEach(function (name) {
+            if (type == 'toggle') {
+              that.classList.toggle(name, display)
+            } else {
+              that.classList[type](name)
+            }
+          })
+        },
+        addClass: function (className) {
+          this._class('add', className)
+          return this
+        },
+        removeClass: function (className) {
+          this._class('remove', className)
+          return this
+        },
+        toggleClass: function (className, display) {
+          this._class('toggle', className, display)
+          return this
+        },
+        hasClass: function (className) {
+          return this.classList.contains(className)
+        }
+      })
+
+      const loadCat = document.querySelector('#loading')
+      const transition = function (target, type, complete) {
+        var animation = {}
+        var display = 'none'
+        switch (type) {
+          case 0:
+            animation = { opacity: [1, 0] }
+            break
+          case 1:
+            animation = { opacity: [0, 1] }
+            display = 'block'
+            break
+          case 'bounceUpIn':
+            animation = {
+              begin: function (anim) {
+                target.display('block')
+              },
+              translateY: [
+                { value: -60, duration: 200 },
+                { value: 10, duration: 200 },
+                { value: -5, duration: 200 },
+                { value: 0, duration: 200 }
+              ],
+              opacity: [0, 1]
+            }
+            display = 'block'
+            break
+          case 'shrinkIn':
+            animation = {
+              begin: function (anim) {
+                target.display('block')
+              },
+              scale: [
+                { value: 1.1, duration: 300 },
+                { value: 1, duration: 200 }
+              ],
+              opacity: 1
+            }
+            display = 'block'
+            break
+          case 'slideRightIn':
+            animation = {
+              begin: function (anim) {
+                target.display('block')
+              },
+              translateX: [100, 0],
+              opacity: [0, 1]
+            }
+            display = 'block'
+            break
+          case 'slideRightOut':
+            animation = {
+              translateX: [0, 100],
+              opacity: [1, 0]
+            }
+            break
+          default:
+            animation = type
+            display = type.display
+            break
+        }
+        anime(
+          Object.assign(
+            {
+              targets: target,
+              duration: 200,
+              easing: 'linear'
+            },
+            animation
+          )
+        ).finished.then(function () {
+          target.style.display = display
+          complete && complete()
+        })
+      }
+
+      const Loader = {
+        timer: null,
+        lock: false,
+        show: function () {
+          clearTimeout(this.timer)
+          document.body.removeClass('loaded')
+          loadCat.attr('style', 'display:block')
+          Loader.lock = false
+        },
+        hide: function (sec) {
+          if (!config.loader.start) sec = -1
+          this.timer = setTimeout(this.vanish, sec || 3000)
+        },
+        vanish: function () {
+          if (Loader.lock) return
+          if (config.loader.start) transition(loadCat, 0)
+          document.body.addClass('loaded')
+          Loader.lock = true
+        }
+      }
+
+      window.addEventListener('DOMContentLoaded', function () {
+        Loader.hide()
+      })
+    </script>
+  </body>
+</html>

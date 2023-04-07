@@ -1,0 +1,251 @@
+// @import './animate.scss';
+// @import './variables.scss';
+// @import './mixin.scss';
+// @import './scrollbar.scss';
+
+::selection {
+  background: var(--color-orange);
+  color: var(--grey-2);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: linear-gradient(to top, var(--body-bg-shadow) 0, var(--grey-1) 20%) no-repeat bottom;
+  color: var(--text-color);
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+
+  &.loaded {
+    overflow: auto;
+    @extend .big-scrollbar;
+    #main .wrap {
+      @extend .slide-up-big-in;
+    }
+
+    #sidebar .panel.active {
+      @extend .slide-up-big-in;
+      display: block !important;
+    }
+
+    #brand .pjax {
+      @extend .slide-down-in;
+    }
+  }
+
+  @include tablet-mobile {
+    // Remove the padding of body when the sidebar is open.
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  &.fullscreen {
+    overflow: hidden;
+
+    #tool,
+    #sidebar > .inner {
+      z-index: 0;
+    }
+  }
+}
+
+a {
+  border: none;
+  color: currentColor;
+  outline: 0;
+  text-decoration: none;
+  @include word-wrap();
+  @include the-transition();
+  // &:hover {
+  //   border-bottom-color: var(--color-blue);
+  //   color: var(--color-blue);
+  // }
+  &::before,
+  &::after {
+    @include the-transition(0.4s);
+  }
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  border: none;
+  color: currentColor;
+  outline: 0;
+  text-decoration: none;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  transition: all 0.2s ease-in-out 0s;
+  cursor: pointer;
+  &::after,
+  &::before {
+    transition: all 0.4s ease-in-out 0s;
+  }
+}
+
+li {
+  list-style-type: none;
+}
+
+.ic {
+  font-family: ic !important;
+  text-align: center;
+  width: 1.25em;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Mulish, 'Noto Serif SC', 'Noto Serif JP', Mulish, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 1.25rem 0 0.9375rem;
+}
+
+h1.title,
+h2.title,
+h3.title,
+h4.title,
+h5.title,
+h6.title {
+  font-family: Mulish, 'Noto Serif JP', 'Noto Serif SC', Mulish, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+.waves {
+  width: 100%;
+  height: 15vh;
+  margin-bottom: -0.6875rem;
+  min-height: 3.125rem;
+  max-height: 9.375rem;
+  position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+
+  // @media (max-width: 767px) {
+  //   height: 10vh;
+  // }
+
+  // @keyframes wave {
+  //   0% {
+  //     transform: translate3d(-90px, 0, 0);
+  //   }
+  //   100% {
+  //     transform: translate3d(85px, 0, 0);
+  //   }
+  // }
+}
+
+.parallax > use {
+  animation: wave 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+  fill: var(--grey-1-a7);
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+  fill: var(--grey-1-a5);
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+  fill: var(--grey-1-a3);
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+  fill: var(--grey-1);
+}
+
+#loading,
+#neko {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 9999;
+}
+
+@keyframes slide-bottom-top {
+  50% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+
+  50.1% {
+    transform-origin: top;
+  }
+
+  to {
+    transform-origin: top;
+  }
+}
+
+@keyframes slide-left-right {
+  50% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  50.1% {
+    transform-origin: right;
+  }
+
+  to {
+    transform-origin: right;
+  }
+}
+
+@keyframes slide-top-bottom {
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+
+  50.1% {
+    transform-origin: bottom;
+  }
+
+  to {
+    transform-origin: bottom;
+  }
+}
+
+@keyframes slide-right-left {
+  50% {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+
+  50.1% {
+    transform-origin: left;
+  }
+
+  to {
+    transform-origin: left;
+  }
+}

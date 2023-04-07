@@ -1,0 +1,29 @@
+---
+import Brand from './Brand.astro'
+import Links from './Links.astro'
+import Imgs from './Imgs.astro'
+import Waves from './Waves.astro'
+---
+
+<header id="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="inner">
+    <Brand />
+    <Links />
+    <Imgs />
+  </div>
+</header>
+<Waves />
+<style lang="scss">
+  #header {
+    @apply m-0 m-x-auto relative w-100\% h-50vh;
+    text-shadow: 0 0.2rem 0.3rem rgb(0 0 0 / 50%);
+    color: var(--header-text-color);
+    a:hover {
+      color: currentColor;
+    }
+    .inner {
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,34 @@
+---
+import Main from './Main.astro'
+import Sidebar from './Sidebar.astro'
+const { page } = Astro.props
+---
+
+<main>
+  <div class="inner">
+    <Main page={page} />
+    <Sidebar page={page} />
+  </div>
+</main>
+
+<style lang="scss">
+  main {
+    background: linear-gradient(to top, var(--body-bg-shadow) 0, var(--grey-1) 20%) no-repeat bottom;
+    display: block;
+    > .inner {
+      width: $content-desktop;
+      align-items: flex-start;
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      margin: 0 auto;
+      @include desktop-large() {
+        width: $content-desktop-large;
+      }
+
+      @include desktop-largest() {
+        width: $content-desktop-largest;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,121 @@
+$mobile-wdith-mobileWidth: 820px;
+$zindex-5: 9999;
+
+@mixin the-transition($duration: 0.2s, $function: ease-in-out, $delay: 0s, $property: all) {
+  transition: $property $duration $function $delay;
+}
+
+@mixin tablet-mobile {
+  @media (max-width: 991px) {
+    @content;
+  }
+}
+
+@mixin mobile() {
+  @media (max-width: $mobile-wdith-mobileWidth) {
+    @content;
+  }
+}
+
+@mixin font-family-icons() {
+  font-family: 'ic';
+  font-weight: normal;
+}
+
+@mixin shadow-box($border: true, $radius: 0.5rem) {
+  border-radius: $radius;
+  @if $border {
+    border: 0.0625rem solid var(--grey-2);
+  }
+  box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--box-bg-shadow);
+}
+
+@mixin word-wrap() {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+%color-btn {
+  color: var(--grey-0);
+  background-image: linear-gradient(to right, var(--color-pink) 0, var(--color-orange) 100%);
+  box-shadow: 0 0 0.75rem var(--color-pink-a3);
+}
+
+@mixin desktop-large() {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin desktop-largest() {
+  @media (min-width: 1600px) {
+    @content;
+  }
+}
+
+@mixin the-flex($direction: column, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin shadow-box($border: true, $radius: 0.5rem) {
+  border-radius: $radius;
+  @if ($border == true) {
+    border: 0.0625rem solid var(--grey-2);
+  }
+  box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--box-bg-shadow);
+}
+
+@mixin tablet() {
+  @media (min-width: $mobile-wdith-mobileWidth) and (max-width: 1043px) {
+    @content;
+  }
+}
+
+@mixin mobile-smallest() {
+  @media (max-width: 413px) {
+    @content;
+  }
+}
+
+%big-scrollbar {
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-pink-light);
+  }
+}
+
+%hover-underline {
+  &::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0.1875rem;
+    bottom: 0;
+    border-radius: 0.125rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: currentColor;
+  }
+}
+
+@mixin icon-before($content) {
+  &:before {
+    content: $content;
+  }
+}
+
+%fix-fullscreen {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: $zindex-5;
+}

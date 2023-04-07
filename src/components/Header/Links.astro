@@ -1,0 +1,188 @@
+---
+import Link from './Link.astro'
+---
+
+<nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines"><span class="line"></span> <span class="line"></span> <span class="line"></span></div>
+    </div>
+    <ul class="menu">
+      <Link to="/" text="Yume Shoka" class="title" /><Link to="/" text="首页" icon="ic i-home" /><Link to="javascript:void(0);" text="关于" icon="ic i-user" /><Link
+        to="javascript:void(0);"
+        text="文章"
+        icon="ic i-feather"
+        class="dropdown"
+      >
+        <Link to="/archives" text="归档" icon="ic i-list-alt" />
+        <Link to="/categories" text="分类" icon="ic i-th" />
+        <Link to="/tags" text="标签" icon="ic i-tags" />
+      </Link>
+    </ul>
+    <ul class="right">
+      <li class="item theme" id="changeThemeByBtn"><i class="ic i-sun text-1.125em!"></i></li>
+      <li class="item search"><i class="ic i-search"></i></li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+  import { changeThemeByBtn } from '@utils/dom'
+  const buttons = document.querySelector('#changeThemeByBtn')
+  buttons.addEventListener('click', changeThemeByBtn)
+</script>
+
+<style lang="scss">
+  #nav {
+    position: fixed;
+    z-index: $zindex-2;
+    width: 100%;
+    height: 3.125rem;
+    backdrop-filter: saturate(180%) blur(20px);
+    @include the-transition();
+
+    &.up {
+      transform: translateY(0);
+    }
+
+    &.down {
+      transform: translateY(-100%);
+    }
+
+    &.show {
+      background: var(--nav-bg);
+      box-shadow: 0.1rem 0.1rem 0.2rem var(--grey-9-a1);
+      text-shadow: 0 0 0.0625rem var(--grey-9-a1);
+      color: var(--text-color);
+
+      .line {
+        background: var(--text-color);
+        box-shadow: 0 0 0.0625rem var(--grey-9-a1);
+      }
+
+      .item.active > a,
+      .item.expand > a {
+        color: var(--color-aqua);
+        opacity: 1;
+      }
+
+      .menu {
+        .submenu {
+          background-color: var(--grey-1);
+          .item.active a {
+            color: var(--grey-0);
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    .inner {
+      height: 100%;
+      display: flex;
+      width: $content-desktop;
+      flex-wrap: nowrap;
+      margin: 0 auto;
+
+      @include desktop-large() {
+        width: $content-desktop-large;
+      }
+
+      @include desktop-largest() {
+        width: $content-desktop-largest;
+      }
+
+      @include tablet-mobile {
+        //width: auto;
+      }
+    }
+
+    .toggle {
+      display: none;
+      line-height: 0;
+      cursor: pointer;
+      @include tablet-mobile {
+        @include the-flex();
+      }
+
+      .lines {
+        padding: 1.25rem;
+        width: 1.375rem;
+        box-sizing: unset;
+      }
+      .line {
+        background: var(--header-text-color);
+        display: inline-block;
+        height: 0.125rem;
+        left: 0;
+        position: relative;
+        border-radius: 0.0625rem;
+        top: 0;
+        transition: all 0.4s;
+        vertical-align: top;
+        width: 100%;
+        box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+
+        &:not(:first-child) {
+          margin-top: 0.1875rem;
+        }
+      }
+
+      &.toggle-arrow {
+        .toggle-line-first {
+          left: 50%;
+          top: 0.125rem;
+          transform: rotate(45deg);
+          width: 50%;
+        }
+
+        .toggle-line-middle {
+          left: 0.125rem;
+          width: 90%;
+        }
+
+        .toggle-line-last {
+          left: 50%;
+          top: -0.125rem;
+          transform: rotate(-45deg);
+          width: 50%;
+        }
+      }
+
+      &.close {
+        .line:nth-child(1) {
+          transform: rotate(-45deg);
+          top: 0.3125rem;
+        }
+
+        .line:nth-child(2) {
+          opacity: 0;
+        }
+
+        .line:nth-child(3) {
+          transform: rotate(45deg);
+          top: -0.3125rem;
+        }
+      }
+    }
+    .right {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      .item {
+        padding: 0.625rem 0.5rem;
+        cursor: pointer;
+      }
+
+      .i-sun {
+        font-size: $font-size-large;
+      }
+    }
+    .menu {
+      padding: 0.625rem 0;
+      margin: 0;
+      width: 100%;
+    }
+  }
+</style>

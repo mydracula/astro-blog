@@ -1,0 +1,451 @@
+---
+import NavLinks from '$lib/components/header/NavLinks.svelte'
+import Menu from '$lib/components/menu.astro'
+import PostList from '$lib/components/postList.astro'
+import { _cover } from '$script/helper/engine'
+import { sidebarDesktop, zindex1, contentWrap, fontSizeMedium, contentDesktop, fontSizeLarger, fontSizeSmall, contentDesktopLarge, contentDesktopLargest } from '$lib/config/variables'
+
+let covers = _cover(undefined, 6)
+const social = 'https://github.com/name || github || "#191717"'
+const menu = [
+  {
+    name: '首页',
+    path: '/',
+    icon: 'home'
+  },
+  {
+    name: '关于',
+    path: '/',
+    icon: 'user',
+    children: [
+      {
+        name: '关于本站',
+        path: '/',
+        icon: 'user'
+      },
+      {
+        name: '赞赏博主',
+        path: '/admiration/',
+        icon: 'coffee'
+      }
+    ]
+  }
+]
+const { posts } = Astro.props
+---
+
+<div id="container">
+  <header id="header">
+    <div class="inner">
+      <slot name="brand" />
+      <nav id="nav">
+        <div class="inner">
+          <div class="toggle">
+            <div class="lines"><span class="line"></span> <span class="line"></span> <span class="line"></span></div>
+          </div>
+          <NavLinks />
+        </div>
+      </nav>
+    </div>
+    <div id="imgs" class="pjax">
+      <ul>
+        {covers.map((item) => <li class="item" data-background-image={item} />)}
+      </ul>
+    </div>
+  </header>
+
+  <div id="waves">
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+      <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+      </defs>
+      <g class="parallax">
+        <use xlink:href="#gentle-wave" x="48" y="0"></use>
+        <use xlink:href="#gentle-wave" x="48" y="3"></use>
+        <use xlink:href="#gentle-wave" x="48" y="5"></use>
+        <use xlink:href="#gentle-wave" x="48" y="7"></use>
+      </g>
+    </svg>
+  </div>
+
+  <main>
+    <div class="inner">
+      <div id="main" class="pjax">
+        <PostList posts={posts} />
+      </div>
+      <div id="sidebar">
+        <div class="inner">
+          <div class="panels">
+            <div class="inner">
+              <div class="contents panel pjax" data-title="文章目录"></div>
+              <div class="related panel pjax" data-title="系列文章"></div>
+              <div class="overview panel active" data-title="站点概览">
+                <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                  <img class="image" itemprop="image" alt="chou kaitaku" data-src="https://s1.yesimg.com/2023/03/31/1e9a5ad47958b.png" />
+                  <p class="name" itemprop="name">chou kaitaku</p>
+                  <div class="description" itemprop="description">一个萌新的学习笔记</div>
+                </div>
+                <nav class="state">
+                  <div class="item posts"><a href="/archives/"><span class="count">36</span><span class="name">文章</span></a></div><div class="item categories">
+                    <a href="/categories/"><span class="count">9</span><span class="name">分类</span></a>
+                  </div><div class="item tags"><a href="/tags/"><span class="count">12</span><span class="name">标签</span></a></div>
+                </nav>
+                <div class="social">
+                  <a href="https://github.com/zkz098" title="https://github.com/zkz098" class="item github" rel="noopener" target="_blank"><i class="ic i-github"></i></a>
+                  <a href="mailto:zkz20081204@126.com" title="mailto:zkz20081204@126.com" class="item email" rel="noopener" target="_blank"><i class="ic i-envelope"></i></a>
+                  <a href="https://stackoverflow.com/users/19941267/kaitaku" title="https://stackoverflow.com/users/19941267/kaitaku" class="item stackoverflow" rel="noopener" target="_blank"
+                    ><i class="ic i-stack-overflow"></i>
+                  </a>
+                </div>
+
+                <Menu menu={menu} />
+                <ul class="nested-list"></ul>
+              </div>
+              <ul id="quick"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer id="footer">
+      <div>© 2023 svelte</div>
+      <div>鄂ICP备19025445号-1</div>
+    </footer>
+  </main>
+</div>
+
+<style lang="scss" define:vars={{ contentWrap, sidebarDesktop, zindex1, fontSizeMedium, contentDesktop, fontSizeLarger, fontSizeSmall, social, contentDesktopLarge, contentDesktopLargest }}>
+  // @import '../../styles/variables.scss';
+  // @import '../../styles/mixin';
+  // @import '../../styles/animate';
+
+  #header {
+    @apply m-0 m-x-auto relative w-100\% h-50vh;
+    text-shadow: 0 0.2rem 0.3rem rgb(0 0 0 / 50%);
+    color: var(--header-text-color);
+    .inner {
+      #nav {
+        @apply fixed z9 w-100\% h-3.125rem;
+        transition: all 0.2s ease-in-out 0s;
+        .inner {
+          @apply h-100\%  flex flex-nowrap;
+          width: calc(100% - 0.625rem);
+          @media (min-width: 1200px) {
+            width: 72.5rem;
+          }
+          @media (min-width: 1600px) {
+            width: 73%;
+          }
+          margin: 0 auto;
+          .toggle {
+            @apply lh-0 cursor-pointer display-none;
+            @media screen and (max-width: 991px) {
+              @apply flex flex-col justify-center items-center;
+            }
+            .lines {
+              @apply box-unset p-1.25rem w-1.375rem;
+            }
+            .line {
+              &:not(:first-child) {
+                margin-top: 0.1875rem;
+              }
+              @apply inline-block h-0.125rem relative left-0 top-0 b-rounded-0.0625rem v-top w-100\%;
+              background: var(--header-text-color);
+              transition: all 0.4s;
+              box-shadow: 0 0 0.5rem rgb(0 0 0 / 50%);
+            }
+          }
+        }
+      }
+    }
+  }
+  main {
+    display: block;
+    background: linear-gradient(to top, var(--body-bg-shadow) 0, var(--grey-1) 20%) no-repeat bottom;
+    > .inner {
+      width: var(--contentDesktop);
+      align-items: flex-start;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row-reverse;
+      margin: 0 auto;
+      // justify-content: space-between;
+      // if (hexo-config('sidebar.position') == 'left') {
+      //   flex-direction: row-reverse;
+      // }
+
+      @include desktop-largest() {
+        width: var(--contentDesktopLarge);
+      }
+
+      @include desktop-largest() {
+        width: var(--contentDesktopLargest);
+      }
+      #main {
+        // background: linear-gradient(to top, var(--grey-0) 0, var(--grey-1) 20%) no-repeat top;
+        // box-shadow: 0 1.25rem 1rem 0.3125rem var(--body-bg-shadow);
+        // width: var(--contentWrap);
+        // min-height: 37.5rem;
+      }
+    }
+    #sidebar {
+      position: static;
+      width: var(--sidebarDesktop);
+      top: 0;
+      bottom: 0;
+      @include the-transition();
+      @include tablet-mobile {
+        display: none;
+        position: fixed;
+        right: 0;
+        background: var(--grey-1);
+        box-shadow: 0 0.375rem 0.9375rem 0.3125rem rgba(0, 0, 0, 0.2);
+        z-index: $zindex-3;
+      }
+      &.affix {
+        > .inner {
+          position: fixed;
+          top: 0;
+        }
+        .panels {
+          padding-top: 3.625rem;
+          height: 100vh;
+        }
+      }
+
+      > .inner {
+        position: relative;
+        width: var(--sidebarDesktop);
+        color: var(--grey-6);
+        text-align: center;
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        z-index: var(--zindex1);
+        .panels {
+          padding: 4.6875rem 0 2rem;
+          width: 100%;
+          overflow: hidden;
+
+          .inner {
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            width: auto;
+            height: 100%;
+
+            &::-webkit-scrollbar {
+              display: none;
+            }
+            .overview {
+              .author {
+                &:hover .image {
+                  animation: shake 1s;
+                }
+
+                .image {
+                  border: 0.0625rem solid var(--body-bg-shadow);
+                  display: block;
+                  margin: 0 auto;
+                  max-width: 10rem;
+                  padding: 0.125rem;
+                  box-shadow: 0 0 1rem 0.625rem var(--body-bg-shadow);
+                  border-radius: 50%;
+                }
+
+                .name {
+                  color: var(--grey-7);
+                  font-weight: normal;
+                  margin: 0.3125rem 0 0;
+                  text-align: center;
+                }
+
+                .description {
+                  color: var(--grey-5);
+                  font-size: var(--fontSizeMedium);
+                  margin-top: 0.3125rem;
+                  text-align: center;
+                }
+              }
+              .state {
+                display: flex;
+                justify-content: center;
+                line-height: 1.4;
+                margin-top: 0.625rem;
+                overflow: hidden;
+                text-align: center;
+                white-space: nowrap;
+
+                .item {
+                  padding: 0 0.9375rem;
+
+                  &:not(:first-child) {
+                    border-left: 0.0625rem solid var(--grey-4);
+                  }
+
+                  a {
+                    border-bottom: none;
+                  }
+
+                  .count {
+                    display: block;
+                    font-size: var(--fontSizeLarger);
+                    font-weight: 600;
+                    text-align: center;
+                  }
+
+                  .name {
+                    color: inherit;
+                    font-size: var(--fontSizeSmall);
+                  }
+                }
+              }
+              .social {
+                margin-top: 0.9375rem;
+                text-align: center;
+                .item {
+                  display: inline-block;
+                  width: 1.875rem;
+                  height: 1.875rem;
+                  line-height: 1.875rem;
+                  text-align: center;
+                  position: relative;
+                  overflow: hidden;
+                  border-radius: 38%;
+
+                  i {
+                    font-size: 1.4em;
+                    vertical-align: middle;
+                    transform: scale(0.8);
+                  }
+
+                  &::before {
+                    top: 90%;
+                    left: -110%;
+                    content: '';
+                    width: 120%;
+                    height: 120%;
+                    position: absolute;
+                    transform: rotate(45deg);
+                  }
+
+                  &::before,
+                  i {
+                    @include the-transition(0.35s, cubic-bezier(0.31, -0.105, 0.43, 1.59));
+                  }
+
+                  &:focus::before,
+                  &:hover::before {
+                    top: -10%;
+                    left: -10%;
+                  }
+
+                  $social: ('github', 'email', 'stackoverflow');
+                  $colors: (#000, #1da1f2, #e6162d);
+
+                  @for $i from 1 through length($social) {
+                    $type: nth($social, $i);
+                    $color: nth($colors, $i);
+
+                    &.#{$type} {
+                      &::before {
+                        background-color: $color;
+                      }
+
+                      i {
+                        color: $color;
+                      }
+                    }
+                  }
+
+                  &:focus i,
+                  &:hover i {
+                    color: var(--grey-0);
+                    transform: scale(1);
+                  }
+                }
+              }
+            }
+
+            @keyframes shake {
+              0% {
+                transform: scale(1);
+              }
+
+              10%,
+              20% {
+                transform: scale(0.9) rotate(3deg);
+              }
+
+              30%,
+              50%,
+              70%,
+              90% {
+                transform: scale(1.1) rotate(-3deg);
+              }
+
+              40%,
+              60%,
+              80% {
+                transform: scale(1.1) rotate(3deg);
+              }
+
+              100% {
+                transform: scale(1);
+              }
+            }
+          }
+
+          .panel {
+            display: none;
+            padding: 0.875rem 0.9375rem 2rem;
+          }
+        }
+      }
+    }
+  }
+  #imgs {
+    @apply block fixed top-0 left-0 w-100\% h-70vh min-h-25rem z--9 bg-#363636;
+    .item {
+      @keyframes imageAnimation {
+        0% {
+          opacity: 0;
+          animation-timing-function: ease-in;
+        }
+        2% {
+          opacity: 1;
+        }
+        8% {
+          opacity: 1;
+          transform: scale(1.05);
+          animation-timing-function: ease-out;
+        }
+        17% {
+          opacity: 1;
+          transform: scale(1.1);
+        }
+        25% {
+          opacity: 0;
+          transform: scale(1.1);
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      @apply w-100\% h-100\% absolute top-0 let-0 bg-cover bg-no-repeat bg-center opacity-0 z-0 backface-hidden preserve-3d;
+      animation: imageAnimation 36s linear infinite 0s;
+
+      @for $i from 1 through 6 {
+        &:nth-child(#{$i + 1}) {
+          animation-delay: $i * 6s;
+        }
+      }
+    }
+
+    &::before {
+      @apply content-none block absolute w-100\% h-100\% top-0 left-0 bg-#00000033 z-1;
+      transition: all 0.2s ease-in-out 0s;
+    }
+  }
+</style>
