@@ -14,12 +14,12 @@ const { page } = Astro.props
 <html lang="en">
   <head>
     <BaseHead title={'title'} description={'description'} image={'/avatar.png'} />
-    <GlobalContainer>
-      <Loading />
-      <div id="container">
-        <Header />
-        <Content page={page} />
-      </div>
-    </GlobalContainer>
   </head>
+  <GlobalContainer>
+    <Loading />
+    <div id="container">
+      <Header />
+      <Content page={page} />
+    </div>
+  </GlobalContainer>
 </html>
