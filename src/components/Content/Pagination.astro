@@ -52,7 +52,7 @@ const getPages = () => {
     }
 
     {
-      currentPage != totalCount && (
+      totalCount > currentPage && (
         <a class="next" href={`/page/${currentPage + 1}/`}>
           <i class="ic i-angle-right" aria-label="下一页" />
         </a>

@@ -28,7 +28,7 @@ const { page } = Astro.props
       {
         (
           <li class="next pjax">
-            {page.currentPage != page.totalCount && (
+            {page.totalCount > page.currentPage && (
               <a href={`/page/${page.currentPage + 1}/`} rel="next" title="下一篇">
                 <i class="ic i-chevron-right"> </i>
               </a>
