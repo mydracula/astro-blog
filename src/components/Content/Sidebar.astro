@@ -28,7 +28,7 @@ const { page } = Astro.props
       {
         (
           <li class="next pjax">
-            {page.totalCount > page.currentPage && (
+            {page.lastPage > page.currentPage && (
               <a href={`/page/${page.currentPage + 1}/`} rel="next" title="下一篇">
                 <i class="ic i-chevron-right"> </i>
               </a>
@@ -40,6 +40,7 @@ const { page } = Astro.props
     </ul>
   </div>
 </div>
+<div class="dimmer"></div>
 
 <style lang="scss">
   #sidebar {
@@ -123,6 +124,29 @@ const { page } = Astro.props
         width: 0;
         min-height: 0.125rem;
       }
+    }
+  }
+  .dimmer {
+    display: none;
+  }
+
+  @include tablet-mobile {
+    .dimmer {
+      background: black;
+      height: 100%;
+      left: 100%;
+      opacity: 0;
+      top: 0;
+      width: 100%;
+      z-index: $zindex-2;
+      transition: opacity 1s;
+    }
+
+    #sidebar.on + .dimmer {
+      position: fixed;
+      display: block;
+      opacity: 0.3;
+      transform: translateX(-100%);
     }
   }
 

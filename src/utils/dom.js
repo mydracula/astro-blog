@@ -987,7 +987,7 @@ export const domInit = function () {
 
   loadCat.addEventListener('click', Loader.vanish)
   menuToggle.addEventListener('click', sideBarToggleHandle)
-  // $dom('.dimmer').addEventListener('click', sideBarToggleHandle)
+  $dom('.dimmer').addEventListener('click', sideBarToggleHandle)
 
   quickBtn.child('.down').addEventListener('click', goToBottomHandle)
   quickBtn.child('.up').addEventListener('click', backToTopHandle)
@@ -1036,7 +1036,6 @@ const pjaxReload = function () {
 }
 
 export const siteRefresh = function (reload) {
-  console.log('=>>', reload)
   LOCAL_HASH = 0
   LOCAL_URL = window.location.href
   // vendorCss('katex')

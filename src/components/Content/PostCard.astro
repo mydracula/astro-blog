@@ -2,6 +2,7 @@
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import getWordCount from '@utils/getWordCount'
+import escapeHTML from '@utils/getStripHtml'
 dayjs.extend(utc)
 const { post } = Astro.props
 
@@ -37,7 +38,7 @@ if (post.frontmatter.rawContent) {
         <span>{time}</span>
       </span>
     </div><h3><a href="/notice/" itemprop="url" title={post.frontmatter.title}>{post.frontmatter.title}</a></h3><div class="excerpt">
-      {post.frontmatter.description || post.rawContent()}
+      {post.frontmatter.description || escapeHTML(post.rawContent())}
     </div><a href="/notice/" itemprop="url" title={post.frontmatter.title} class="btn">more...</a>
   </div>
 </article>

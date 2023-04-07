@@ -1,5 +1,7 @@
 import { visit } from 'unist-util-visit'
 
+import { toString } from 'mdast-util-to-string'
+
 const getText = (node) => {
   let value = ''
   visit(node, (node1) => {
@@ -23,7 +25,6 @@ const getText = (node) => {
 
 const injectDefaultLayout = () => (tree, file) => {
   const astro = file.data.astro
-
   // const fileToc = getToc(tree);
   // if (!astro.frontmatter.toc && fileToc) {
   //   astro.frontmatter.toc = fileToc;

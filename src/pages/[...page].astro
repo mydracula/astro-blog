@@ -4,7 +4,7 @@ export async function getStaticPaths({ paginate }: { paginate: any }) {
   const allPosts = await Astro.glob('/src/contents/*.{md,mdx}')
   const sortedPosts = allPosts.sort((a, b) => Number(new Date(b.frontmatter.date)) - Number(new Date(a.frontmatter.date)))
   return paginate(sortedPosts, {
-    pageSize: 6
+    pageSize: 10
   })
 }
 
