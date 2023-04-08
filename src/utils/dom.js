@@ -1073,6 +1073,8 @@ export const siteInit = function () {
     cacheBust: false
   })
 
+  autoDarkmode()
+
   window.addEventListener('scroll', scrollHandle)
   window.addEventListener('resize', resizeHandle)
   window.addEventListener('pjax:send', pjaxReload)
