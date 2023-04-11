@@ -1,4 +1,5 @@
 ---
+import Divider from '@components/ArticlePage/Divider.astro'
 import Overview from './Overview.astro'
 const { page } = Astro.props
 ---
@@ -13,29 +14,27 @@ const { page } = Astro.props
       </div>
     </div>
     <ul id="quick">
-      {
-        (
-          <li class="prev pjax">
-            {page.currentPage > 2 && (
-              <a href={`/page/${page.currentPage - 1}/`} rel="prev" title="上一篇">
-                <i class="ic i-chevron-left" />
-              </a>
-            )}
-          </li>
-        )
-      }
+      <li class="prev pjax">
+        {
+          page && page.currentPage > 2 && (
+            <a href={`/page/${page.currentPage - 1}/`} rel="prev" title="上一篇">
+              <i class="ic i-chevron-left" />
+            </a>
+          )
+        }
+      </li>
+
       <li class="up"><i class="ic i-arrow-up"></i></li><li class="down"><i class="ic i-arrow-down"></i></li>
-      {
-        (
-          <li class="next pjax">
-            {page.lastPage > page.currentPage && (
-              <a href={`/page/${page.currentPage + 1}/`} rel="next" title="下一篇">
-                <i class="ic i-chevron-right"> </i>
-              </a>
-            )}
-          </li>
-        )
-      }
+
+      <li class="next pjax">
+        {
+          page && page.lastPage > page.currentPage && (
+            <a href={`/page/${page.currentPage + 1}/`} rel="next" title="下一篇">
+              <i class="ic i-chevron-right"> </i>
+            </a>
+          )
+        }
+      </li>
       <li class="percent"></li>
     </ul>
   </div>

@@ -7,12 +7,12 @@
 
 <div id="imgs" class={className}>
   <ul>
-    <li class="item " data-background-image="https://img.timelessq.com/images/2022/07/26/4368c702fcf1129cac003f7c2f181875.jpg" />
-    <li class="item " data-background-image="https://img.timelessq.com/images/2022/07/26/471188138f7f9597f65d16889f1ade0e.jpg" />
-    <li class="item " data-background-image="https://img.timelessq.com/images/2022/07/26/5b5adebbec99efe0ce45af5f815b58ed.jpg" />
-    <li class="item " data-background-image="https://img.timelessq.com/images/2022/07/26/dd21608b40c2387068c472909a82b3e0.jpg" />
-    <li class="item " data-background-image="https://img.timelessq.com/images/2022/07/26/a8d0ac76b87f7593653e29559d61b32d.jpg" />
-    <li class="item " data-background-image="https://img.timelessq.com/images/2022/07/26/9e00cb8944af8ad12fd6b7fd7eb24ebc.jpg" />
+    <li class="item" data-background-image="https://img.timelessq.com/images/2022/07/26/4368c702fcf1129cac003f7c2f181875.jpg" />
+    <li class="item" data-background-image="https://img.timelessq.com/images/2022/07/26/471188138f7f9597f65d16889f1ade0e.jpg" />
+    <li class="item" data-background-image="https://img.timelessq.com/images/2022/07/26/5b5adebbec99efe0ce45af5f815b58ed.jpg" />
+    <li class="item" data-background-image="https://img.timelessq.com/images/2022/07/26/dd21608b40c2387068c472909a82b3e0.jpg" />
+    <li class="item" data-background-image="https://img.timelessq.com/images/2022/07/26/a8d0ac76b87f7593653e29559d61b32d.jpg" />
+    <li class="item" data-background-image="https://img.timelessq.com/images/2022/07/26/9e00cb8944af8ad12fd6b7fd7eb24ebc.jpg" />
     <!-- {#each covers as image}
       <li class="lozad item" data-background-image={image} />
     {/each} -->

@@ -1,0 +1,9 @@
+---
+import Common from '@components/Common.astro'
+import Main from './Main.astro'
+const { page, post } = Astro.props
+---
+
+<Common page={page}>
+  <Main post={post} />
+</Common>

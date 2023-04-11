@@ -1,12 +1,11 @@
 ---
-import Main from './Main.astro'
-import Sidebar from './Sidebar.astro'
+import Sidebar from '@components/Sidebar/Index.astro'
 const { page } = Astro.props
 ---
 
 <main>
   <div class="inner">
-    <Main page={page} />
+    <slot />
     <Sidebar page={page} />
   </div>
 </main>

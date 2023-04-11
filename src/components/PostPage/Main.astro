@@ -1,0 +1,17 @@
+---
+import Heading from '@components/Mark/Heading.astro'
+const { post } = Astro.props
+const { Content } = await post.render()
+---
+
+<div class="pjax" id="main">
+  <dir class="article wrap">
+    <div class="breadcrumb" itemtype="https://schema.org/BreadcrumbList">
+      <article class="post block" itemscope="" itemtype="http://schema.org/Article" lang="zh-CN">
+        <div class="body md" itemprop="articleBody">
+          <Content components={{ h1: Heading }} />
+        </div>
+      </article>
+    </div>
+  </dir>
+</div>

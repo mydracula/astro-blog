@@ -1,0 +1,10 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro'
+import PostPage from '@components/PostPage/Index.astro'
+
+const { post } = Astro.props
+---
+
+<BaseLayout>
+  <PostPage post={post} />
+</BaseLayout>

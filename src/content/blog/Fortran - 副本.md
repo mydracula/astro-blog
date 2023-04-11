@@ -1,7 +1,11 @@
 ---
-title: 10用 VS Code + MSYS 搞定 Windows 上的 Fortran 开发
-date: 2022-03-02 20:07:00
-tag: [教程]
+title: 10用 VS Code + MSYS 搞定
+date: 2022-03-12 21:50:00
+tag:
+  - 教程
+isMdx: false
+description: ''
+abbrlink: 11021
 ---
 
 ## Visual Studio？

@@ -25,7 +25,7 @@ Object.assign(HTMLElement.prototype, {
   /**
    * 创建一个子节点并放置
    */
-  createChild: function (tag, obj, positon) {
+  createChild: function(tag, obj, positon) {
     const child = document.createElement(tag)
     Object.assign(child, obj)
     switch (positon) {
@@ -41,14 +41,14 @@ Object.assign(HTMLElement.prototype, {
     }
     return child
   },
-  wrapObject: function (obj) {
+  wrapObject: function(obj) {
     const box = document.createElement('div')
     Object.assign(box, obj)
     this.parentNode.insertBefore(box, this)
     this.parentNode.removeChild(this)
     box.appendChild(this)
   },
-  changeOrGetHeight: function (h) {
+  changeOrGetHeight: function(h) {
     if (h) {
       this.style.height = typeof h === 'number' ? h + 'rem' : h
     }
@@ -58,16 +58,16 @@ Object.assign(HTMLElement.prototype, {
    此函数将元素的宽度设置为指定值,如果未提供值,则返回元素的宽度.<br />
    宽度可以作为数字提供(假定它以`rem`为单位).作为字符串提供则直接设置为元素宽度
    */
-  changeOrGetWidth: function (w) {
+  changeOrGetWidth: function(w) {
     if (w) {
       this.style.width = typeof w === 'number' ? w + 'rem' : w
     }
     return this.getBoundingClientRect().width
   },
-  top: function () {
+  top: function() {
     return this.getBoundingClientRect().top
   },
-  left: function () {
+  left: function() {
     return this.getBoundingClientRect().left
   },
   /**
@@ -76,7 +76,7 @@ Object.assign(HTMLElement.prototype, {
    * 2. `value`如果为真，则该函数将使用`type`参数指定的名称将属性设置为当前上下文中`value`参数的值。然后，该函数返回当前上下文。 <br />
    * 3. `value`如果不是真，则该函数返回属性的值，该值具有当前上下文中的参数指定的名称。
    */
-  attr: function (type, value) {
+  attr: function(type, value) {
     if (value === null) {
       return this.removeAttribute(type)
     }
@@ -90,7 +90,7 @@ Object.assign(HTMLElement.prototype, {
   /**
    * 将此节点插入父节点的下一个节点之前
    */
-  insertAfter: function (element) {
+  insertAfter: function(element) {
     const parent = this.parentNode
     if (parent.lastChild === this) {
       parent.appendChild(element)
@@ -102,7 +102,7 @@ Object.assign(HTMLElement.prototype, {
    * 当d为空时返回此节点的CSSStyle display属性 <br />
    * 反之,将d设置为此节点的CSSStyle display属性
    */
-  display: function (d) {
+  display: function(d) {
     if (d == null) {
       return this.style.display
     } else {
@@ -113,20 +113,20 @@ Object.assign(HTMLElement.prototype, {
   /**
    * 找到此节点第一个符合selector选择器的子节点
    */
-  child: function (selector) {
+  child: function(selector) {
     return $dom(selector, this)
   },
   /**
    * 找到此节点所有符合selector选择器的子节点
    */
-  find: function (selector) {
+  find: function(selector) {
     return $dom.all(selector, this)
   },
   /**
    * 当输入type为toggle时,对每个className执行toggle操作 <br />
    * 反之,对每个className执行type操作
    */
-  _class: function (type, className, display) {
+  _class: function(type, className, display) {
     const classNames = className.indexOf(' ') ? className.split(' ') : [className]
     classNames.forEach((name) => {
       if (type === 'toggle') {
@@ -136,19 +136,19 @@ Object.assign(HTMLElement.prototype, {
       }
     })
   },
-  addClass: function (className) {
+  addClass: function(className) {
     this._class('add', className)
     return this
   },
-  removeClass: function (className) {
+  removeClass: function(className) {
     this._class('remove', className)
     return this
   },
-  toggleClass: function (className, display) {
+  toggleClass: function(className, display) {
     this._class('toggle', className, display)
     return this
   },
-  hasClass: function (className) {
+  hasClass: function(className) {
     return this.classList.contains(className)
   }
 })
@@ -161,7 +161,10 @@ $dom.each = (selector, callback, element) => {
   return $dom.all(selector, element).forEach(callback)
 }
 // export const statics = CONFIG.statics.indexOf('//') > 0 ? CONFIG.statics : CONFIG.root
-export const scrollAction = { x: 0, y: 0 }
+export const scrollAction = {
+  x: 0,
+  y: 0
+}
 export let diffY = 0
 export let originTitle, titleTime
 export const BODY = document.getElementsByTagName('body')[0]
@@ -188,27 +191,42 @@ export let LOCAL_URL = window.location.href
 export let pjax
 const auto_scroll = true
 
-export const transition = function (target, type, complete) {
+export const transition = function(target, type, complete) {
   var animation = {}
   var display = 'none'
   switch (type) {
     case 0:
-      animation = { opacity: [1, 0] }
+      animation = {
+        opacity: [1, 0]
+      }
       break
     case 1:
-      animation = { opacity: [0, 1] }
+      animation = {
+        opacity: [0, 1]
+      }
       display = 'block'
       break
     case 'bounceUpIn':
       animation = {
-        begin: function (anim) {
+        begin: function(anim) {
           target.display('block')
         },
-        translateY: [
-          { value: -60, duration: 200 },
-          { value: 10, duration: 200 },
-          { value: -5, duration: 200 },
-          { value: 0, duration: 200 }
+        translateY: [{
+            value: -60,
+            duration: 200
+          },
+          {
+            value: 10,
+            duration: 200
+          },
+          {
+            value: -5,
+            duration: 200
+          },
+          {
+            value: 0,
+            duration: 200
+          }
         ],
         opacity: [0, 1]
       }
@@ -216,12 +234,17 @@ export const transition = function (target, type, complete) {
       break
     case 'shrinkIn':
       animation = {
-        begin: function (anim) {
+        begin: function(anim) {
           target.display('block')
         },
-        scale: [
-          { value: 1.1, duration: 300 },
-          { value: 1, duration: 200 }
+        scale: [{
+            value: 1.1,
+            duration: 300
+          },
+          {
+            value: 1,
+            duration: 200
+          }
         ],
         opacity: 1
       }
@@ -229,7 +252,7 @@ export const transition = function (target, type, complete) {
       break
     case 'slideRightIn':
       animation = {
-        begin: function (anim) {
+        begin: function(anim) {
           target.display('block')
         },
         translateX: [100, 0],
@@ -249,22 +272,21 @@ export const transition = function (target, type, complete) {
       break
   }
   anime(
-    Object.assign(
-      {
+    Object.assign({
         targets: target,
         duration: 200,
         easing: 'linear'
       },
       animation
     )
-  ).finished.then(function () {
+  ).finished.then(function() {
     target.display(display)
     complete && complete()
   })
 }
 
 // 更改日夜模式
-export const changeTheme = function (type) {
+export const changeTheme = function(type) {
   const btn = $dom('.theme .ic')
   if (type === 'dark') {
     HTML.attr('data-theme', type)
@@ -277,7 +299,7 @@ export const changeTheme = function (type) {
   }
 }
 // 自动调整黑夜白天 优先级: 手动选择>时间>跟随系统
-export const autoDarkmode = function () {
+export const autoDarkmode = function() {
   const auto_dark = {
     enable: true,
     start: 20,
@@ -293,7 +315,7 @@ export const autoDarkmode = function () {
 }
 // 懒加载图片
 export const lazyload = lozad('img, [data-background-image]', {
-  loaded: function (el) {
+  loaded: function(el) {
     el.addClass('lozaded')
   }
 })
@@ -301,19 +323,19 @@ export const lazyload = lozad('img, [data-background-image]', {
 export const Loader = {
   timer: undefined,
   lock: false,
-  show: function () {
+  show: function() {
     clearTimeout(this.timer)
     document.body.removeClass('loaded')
     loadCat.attr('style', 'display:block')
     Loader.lock = false
   },
-  hide: function (sec) {
+  hide: function(sec) {
     if (!CONFIG.loader.start) {
       sec = -1
     }
     this.timer = setTimeout(this.vanish, sec || 3000)
   },
-  vanish: function () {
+  vanish: function() {
     if (Loader.lock) {
       return
     }
@@ -325,21 +347,21 @@ export const Loader = {
   }
 }
 
-const cardActive = function () {
+const cardActive = function() {
   if (!$dom('.index.wrap')) {
     return
   }
 
   if (!window.IntersectionObserver) {
-    $dom.each('.index.wrap article.item, .index.wrap section.item', function (article) {
+    $dom.each('.index.wrap article.item, .index.wrap section.item', function(article) {
       if (article.hasClass('show') === false) {
         article.addClass('show')
       }
     })
   } else {
     const io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (article) {
+      function(entries) {
+        entries.forEach(function(article) {
           if (article.target.hasClass('show')) {
             io.unobserve(article.target)
           } else {
@@ -349,47 +371,49 @@ const cardActive = function () {
             }
           }
         })
-      },
-      {
+      }, {
         root: null,
         threshold: [0.3]
       }
     )
 
-    $dom.each('.index.wrap article.item, .index.wrap section.item', function (article) {
+    $dom.each('.index.wrap article.item, .index.wrap section.item', function(article) {
       io.observe(article)
     })
 
     $dom('.index.wrap .item:first-child').addClass('show')
   }
 
-  $dom.each('.cards .item', function (element, index) {
-    ;['mouseenter', 'touchstart'].forEach(function (item) {
+  $dom.each('.cards .item', function(element, index) {
+    ;
+    ['mouseenter', 'touchstart'].forEach(function(item) {
       element.addEventListener(
         item,
-        function (event) {
+        function(event) {
           if ($dom('.cards .item.active')) {
             $dom('.cards .item.active').removeClass('active')
           }
           element.addClass('active')
-        },
-        { passive: true }
+        }, {
+          passive: true
+        }
       )
-    })
-    ;['mouseleave'].forEach(function (item) {
+    });
+    ['mouseleave'].forEach(function(item) {
       element.addEventListener(
         item,
-        function (event) {
+        function(event) {
           element.removeClass('active')
-        },
-        { passive: true }
+        }, {
+          passive: true
+        }
       )
     })
   })
 }
 
 // 更改主题的meta
-export const changeMetaTheme = function (color) {
+export const changeMetaTheme = function(color) {
   if (HTML.attr('data-theme') === 'dark') {
     color = '#222'
   }
@@ -397,8 +421,8 @@ export const changeMetaTheme = function (color) {
   $dom('meta[name="theme-color"]').attr('content', color)
 }
 // 记忆日夜模式切换和系统亮暗模式监听
-export const themeColorListener = function () {
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (mediaQueryList) {
+export const themeColorListener = function() {
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(mediaQueryList) {
     if (mediaQueryList.matches) {
       changeTheme('dark')
     } else {
@@ -416,9 +440,9 @@ export const themeColorListener = function () {
   }
 }
 // 可见度监听(离开页面和返回时更改document的title)
-export const visibilityListener = function () {
+export const visibilityListener = function() {
   const iconNode = $dom('[rel="icon"]')
-  document.addEventListener('visibilitychange', function () {
+  document.addEventListener('visibilitychange', function() {
     switch (document.visibilityState) {
       case 'hidden':
         iconNode.attr('href', statics + CONFIG.favicon.hidden)
@@ -434,7 +458,7 @@ export const visibilityListener = function () {
         if (CONFIG.loader.switch) {
           Loader.hide(1000)
         }
-        titleTime = setTimeout(function () {
+        titleTime = setTimeout(function() {
           document.title = originTitle
         }, 2000)
         break
@@ -442,7 +466,7 @@ export const visibilityListener = function () {
   })
 }
 // 显示提示(现阶段用于版权及复制结果提示)
-export const showtip = function (msg) {
+export const showtip = function(msg) {
   if (!msg) {
     return
   }
@@ -452,14 +476,14 @@ export const showtip = function (msg) {
     className: 'tip'
   })
 
-  setTimeout(function () {
+  setTimeout(function() {
     tipbox.addClass('hide')
-    setTimeout(function () {
+    setTimeout(function() {
       BODY.removeChild(tipbox)
     }, 300)
   }, 3000)
 }
-export const resizeHandle = function (event) {
+export const resizeHandle = function(event) {
   // 获取 siteNav 的高度
   siteNavHeight = siteNav.changeOrGetHeight()
   // 获取 siteHeader 的高度
@@ -478,7 +502,7 @@ export const resizeHandle = function (event) {
   // 设置 sidebar .panels 元素的高度
   sideBar.child('.panels').changeOrGetHeight(oWinHeight + 'px')
 }
-export const scrollHandle = function (event) {
+export const scrollHandle = function(event) {
   // 获取窗口高度
   const winHeight = window.innerHeight
   // 获取文档高度
@@ -529,7 +553,7 @@ export const scrollHandle = function (event) {
   $dom('.percent').changeOrGetWidth(scrollPercent)
 }
 
-const pageScroll = function (target, offset, complete) {
+const pageScroll = function(target, offset, complete) {
   // target: 滚动到的目标元素或坐标(number)
   // offset: 可选的偏移量
   // complete: 可选的回调函数，在动画完成时调用
@@ -543,7 +567,7 @@ const pageScroll = function (target, offset, complete) {
     // 如果 offset 存在，则滚动到 offset，如果 target 是数字，则滚动到 target，如果 target 是 DOM 元素，则滚动到下述表达式
     scrollTop: offset || (typeof target === 'number' ? target : target ? target.top() + document.documentElement.scrollTop - siteNavHeight : 0),
     // 完成回调函数
-    complete: function () {
+    complete: function() {
       complete && complete()
     }
   }
@@ -551,14 +575,14 @@ const pageScroll = function (target, offset, complete) {
   // 调用 anime.js 函数，并传入参数
 }
 
-export const pagePosition = function () {
+export const pagePosition = function() {
   // 判断配置项是否开启了自动记录滚动位置
   if (auto_scroll) {
     // 将当前页面的滚动位置存入本地缓存
     $storage.set(LOCAL_URL, String(scrollAction.y))
   }
 }
-export const positionInit = function (comment) {
+export const positionInit = function(comment) {
   // 获取页面锚点
   const anchor = window.location.hash
 
@@ -584,7 +608,7 @@ export const positionInit = function (comment) {
     LOCAL_HASH = 1
   }
 }
-export const clipBoard = function (str, callback) {
+export const clipBoard = function(str, callback) {
   //   这段代码是用来复制文本的。它使用了浏览器的 Clipboard API，如果浏览器支持该 API 并且当前页面是安全协议 (https)，
   // 它将使用 Clipboard API 将文本复制到剪贴板。如果不支持，它会创建一个隐藏的文本区域并使用 document.execCommand('copy') 将文本复制到剪贴板。最后，它会回调传入的函数并传入一个布尔值表示是否成功复制。
   if (navigator.clipboard && window.isSecureContext) {
@@ -622,7 +646,7 @@ export const clipBoard = function (str, callback) {
     BODY.removeChild(ta)
   }
 }
-export const isOutime = function () {
+export const isOutime = function() {
   let updateTime
   if (CONFIG.outime.enable && LOCAL.outime) {
     const times = document.getElementsByTagName('time')
@@ -654,7 +678,7 @@ export const isOutime = function () {
     }
   }
 }
-export const clickMenu = function () {
+export const clickMenu = function() {
   /**
    * 此函数用于修改右键点击显示菜单 <br/>
    * 需要在document下存在如下元素:
@@ -664,7 +688,7 @@ export const clickMenu = function () {
    * - clickMenu的active类(控制显示)
    */
   const menuElement = $dom('#clickMenu')
-  window.oncontextmenu = function (event) {
+  window.oncontextmenu = function(event) {
     if (event.ctrlKey) {
       // 当按下ctrl键时不触发自定义菜单
       return
@@ -690,12 +714,12 @@ export const clickMenu = function () {
       }
     })
   }
-  window.addEventListener('click', function () {
+  window.addEventListener('click', function() {
     menuElement.classList.remove('active')
   })
 }
 /* 边栏分区 */
-const sideBarToggleHandle = function (event, force) {
+const sideBarToggleHandle = function(event, force) {
   if (sideBar.hasClass('on')) {
     sideBar.removeClass('on')
     menuToggle.removeClass('close')
@@ -712,7 +736,7 @@ const sideBarToggleHandle = function (event, force) {
       // noinspection JSConstantReassignment
       sideBar.style = ''
     } else {
-      transition(sideBar, 'slideRightIn', function () {
+      transition(sideBar, 'slideRightIn', function() {
         sideBar.addClass('on')
         menuToggle.addClass('close')
       })
@@ -720,7 +744,7 @@ const sideBarToggleHandle = function (event, force) {
   }
 }
 
-const sideBarTab = function () {
+const sideBarTab = function() {
   const sideBarInner = sideBar.child('.inner')
   const panels = sideBar.find('.panel')
 
@@ -730,8 +754,8 @@ const sideBarTab = function () {
 
   const list = document.createElement('ul')
   let active = 'active'
-  list.className = 'tab'
-  ;['contents', 'related', 'overview'].forEach(function (item) {
+  list.className = 'tab';
+  ['contents', 'related', 'overview'].forEach(function(item) {
     const element = sideBar.child('.panel.' + item)
 
     if (element.innerHTML.replace(/(^\s*)|(\s*$)/g, '').length < 1) {
@@ -759,15 +783,15 @@ const sideBarTab = function () {
       element.removeClass('active')
     }
     // TODO 出现BUG把event去掉
-    tab.addEventListener('click', function (event) {
+    tab.addEventListener('click', function(event) {
       const target = event.currentTarget
       if (target.hasClass('active')) return
 
-      sideBar.find('.tab .item').forEach(function (element) {
+      sideBar.find('.tab .item').forEach(function(element) {
         element.removeClass('active')
       })
 
-      sideBar.find('.panel').forEach(function (element) {
+      sideBar.find('.panel').forEach(function(element) {
         element.removeClass('active')
       })
 
@@ -787,8 +811,8 @@ const sideBarTab = function () {
   }
 }
 
-const sidebarTOC = function () {
-  const activateNavByIndex = function (index, lock) {
+const sidebarTOC = function() {
+  const activateNavByIndex = function(index, lock) {
     const target = navItems[index]
 
     if (!target) return
@@ -797,11 +821,11 @@ const sidebarTOC = function () {
       return
     }
 
-    $dom.each('.toc .active', function (element) {
+    $dom.each('.toc .active', function(element) {
       element && element.removeClass('active current')
     })
 
-    sections.forEach(function (element) {
+    sections.forEach(function(element) {
       element && element.removeClass('active')
     })
 
@@ -834,18 +858,18 @@ const sidebarTOC = function () {
   let sections = Array.prototype.slice.call(navItems) || []
   let activeLock = null
 
-  sections = sections.map(function (element, index) {
+  sections = sections.map(function(element, index) {
     const link = element.child('a.toc-link')
     const anchor = $dom(decodeURI(link.attr('href')))
     if (!anchor) return null
     const alink = anchor.child('a.anchor')
 
-    const anchorScroll = function (event) {
+    const anchorScroll = function(event) {
       event.preventDefault()
       const target = $dom(decodeURI(event.currentTarget.attr('href')))
 
       activeLock = index
-      pageScroll(target, null, function () {
+      pageScroll(target, null, function() {
         activateNavByIndex(index)
         activeLock = null
       })
@@ -854,7 +878,7 @@ const sidebarTOC = function () {
     // TOC item animation navigate.
     link.addEventListener('click', anchorScroll)
     alink &&
-      alink.addEventListener('click', function (event) {
+      alink.addEventListener('click', function(event) {
         anchorScroll(event)
         clipBoard(CONFIG.hostname + '/' + LOCAL.path + event.currentTarget.attr('href'))
       })
@@ -863,7 +887,7 @@ const sidebarTOC = function () {
 
   const tocElement = sideBar.child('.contents.panel')
 
-  const findIndex = function (entries) {
+  const findIndex = function(entries) {
     let index = 0
     let entry = entries[index]
 
@@ -881,23 +905,22 @@ const sidebarTOC = function () {
     return sections.indexOf(entry.target)
   }
 
-  const createIntersectionObserver = function () {
+  const createIntersectionObserver = function() {
     if (!window.IntersectionObserver) return
 
     const observer = new IntersectionObserver(
-      function (entries, observe) {
+      function(entries, observe) {
         const index = findIndex(entries) + (diffY < 0 ? 1 : 0)
         if (activeLock === null) {
           activateNavByIndex(index)
         }
-      },
-      {
+      }, {
         rootMargin: '0px 0px -100% 0px',
         threshold: 0
       }
     )
 
-    sections.forEach(function (element) {
+    sections.forEach(function(element) {
       element && observer.observe(element)
     })
   }
@@ -905,20 +928,20 @@ const sidebarTOC = function () {
   createIntersectionObserver()
 }
 
-const backToTopHandle = function () {
+const backToTopHandle = function() {
   pageScroll(0)
 }
 
-const goToBottomHandle = function () {
+const goToBottomHandle = function() {
   pageScroll(parseInt(String(Container.changeOrGetHeight())))
 }
 
-const goToCommentHandle = function () {
+const goToCommentHandle = function() {
   pageScroll($dom('#comments'))
 }
 
-const menuActive = function () {
-  $dom.each('.menu .item:not(.title)', function (element) {
+const menuActive = function() {
+  $dom.each('.menu .item:not(.title)', function(element) {
     const target = element.child('a[href]')
 
     const parentItem = element.parentNode.parentNode
@@ -935,32 +958,30 @@ const menuActive = function () {
   })
 }
 
-export const changeThemeByBtn = function () {
+export const changeThemeByBtn = function() {
   let c
   const btn = $dom('.theme').child('.ic')
 
   const neko = BODY.createChild('div', {
     id: 'neko',
-    innerHTML:
-      '<div class="planet"><div class="sun"></div><div class="moon"></div></div><div class="body"><div class="face"><section class="eyes left"><span class="pupil"></span></section><section class="eyes right"><span class="pupil"></span></section><span class="nose"></span></div></div>'
+    innerHTML: '<div class="planet"><div class="sun"></div><div class="moon"></div></div><div class="body"><div class="face"><section class="eyes left"><span class="pupil"></span></section><section class="eyes right"><span class="pupil"></span></section><span class="nose"></span></div></div>'
   })
 
-  const hideNeko = function () {
+  const hideNeko = function() {
     transition(
-      neko,
-      {
+      neko, {
         // @ts-ignore
         delay: 2500,
         opacity: 0
       },
-      function () {
+      function() {
         BODY.removeChild(neko)
       }
     )
   }
 
   if (btn.hasClass('i-sun')) {
-    c = function () {
+    c = function() {
       neko.addClass('dark')
       changeTheme('dark')
       $storage.set('theme', 'dark')
@@ -968,20 +989,20 @@ export const changeThemeByBtn = function () {
     }
   } else {
     neko.addClass('dark')
-    c = function () {
+    c = function() {
       neko.removeClass('dark')
       changeTheme()
       $storage.set('theme', 'light')
       hideNeko()
     }
   }
-  transition(neko, 1, function () {
+  transition(neko, 1, function() {
     setTimeout(c, 210)
   })
 }
 
-export const domInit = function () {
-  $dom.each('.overview .menu > .item', function (el) {
+export const domInit = function() {
+  $dom.each('.overview .menu > .item', function(el) {
     // siteNav.child('.menu').appendChild(el.cloneNode(true))
   })
 
@@ -995,8 +1016,7 @@ export const domInit = function () {
   if (!toolBtn) {
     toolBtn = siteHeader.createChild('div', {
       id: 'tool',
-      innerHTML:
-        '<div class="item player"></div><div class="item contents"><i class="ic i-list-ol"></i></div><div class="item chat" style="display: none;"><i class="ic i-comments"></i></div><div class="item back-to-top"><i class="ic i-arrow-up"></i><span>0%</span></div>'
+      innerHTML: '<div class="item player"></div><div class="item contents"><i class="ic i-list-ol"></i></div><div class="item chat" style="display: none;"><i class="ic i-comments"></i></div><div class="item back-to-top"><i class="ic i-arrow-up"></i><span>0%</span></div>'
     })
   }
 
@@ -1018,16 +1038,17 @@ export const domInit = function () {
   // }
 }
 
-const pjaxReload = function () {
+const pjaxReload = function() {
   pagePosition()
 
   if (sideBar.hasClass('on')) {
-    transition(sideBar, function () {
+    transition(sideBar, function() {
       sideBar.removeClass('on')
       menuToggle.removeClass('close')
     }) // 'transition.slideRightOut'
   }
   const mainNode = $dom('#main')
+
   // $('#main').innerHTML = ''
   // $('#main').appendChild(loadCat.lastChild.cloneNode(true));
   mainNode.innerHTML = ''
@@ -1035,7 +1056,7 @@ const pjaxReload = function () {
   pageScroll(0)
 }
 
-export const siteRefresh = function (reload) {
+export const siteRefresh = function(reload) {
   LOCAL_HASH = 0
   LOCAL_URL = window.location.href
   // vendorCss('katex')
@@ -1057,7 +1078,7 @@ export const siteRefresh = function (reload) {
   //   toolPlayer.player.load(LOCAL.audio || CONFIG.audio || {})
   // }
   Loader.hide()
-  setTimeout(function () {
+  setTimeout(function() {
     positionInit()
   }, 500)
   cardActive()
@@ -1065,7 +1086,7 @@ export const siteRefresh = function (reload) {
   // isOutime()
 }
 
-export const siteInit = function () {
+export const siteInit = function() {
   domInit()
   pjax = new Pjax({
     selectors: ['head title', '.languages', '.pjax', '.leancloud-recent-comment', , 'script[data-config]'],
@@ -1073,13 +1094,13 @@ export const siteInit = function () {
     cacheBust: false
   })
 
-  autoDarkmode()
+  // autoDarkmode()
 
   window.addEventListener('scroll', scrollHandle)
   window.addEventListener('resize', resizeHandle)
   window.addEventListener('pjax:send', pjaxReload)
   window.addEventListener('pjax:success', siteRefresh)
-  window.addEventListener('beforeunload', function () {
+  window.addEventListener('beforeunload', function() {
     pagePosition()
   })
   siteRefresh(1)

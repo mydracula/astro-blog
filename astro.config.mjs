@@ -1,8 +1,11 @@
-import { defineConfig } from 'astro/config';
-import UnoCSS from 'unocss/astro';
-import InjectJSCSS from './src/utils/index.js';
-import Remark from './src/utils/remark.js';
-import compress from "astro-compress";
+import {
+  defineConfig
+} from 'astro/config'
+import UnoCSS from 'unocss/astro'
+import InjectJSCSS from './src/utils/index.js'
+import permalinkPlugin from 'vite-plugin-permalink'
+import Remark from './src/utils/remark.js'
+import compress from 'astro-compress'
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,6 +14,7 @@ export default defineConfig({
     remarkPlugins: [Remark]
   },
   vite: {
+    plugins: [permalinkPlugin(['src/content/**/*.md'])],
     css: {
       preprocessorOptions: {
         scss: {
@@ -19,4 +23,4 @@ export default defineConfig({
       }
     }
   }
-});
+})

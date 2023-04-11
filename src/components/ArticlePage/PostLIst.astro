@@ -1,0 +1,16 @@
+---
+import Divider from './Divider.astro'
+import PostCard from './PostCard.astro'
+import Pagination from './Pagination.astro'
+const { posts, totalCount, currentPage, currentUrl, previousUrl, nextUrl } = Astro.props
+---
+
+<div class="pjax" id="main">
+  <div class="index wrap">
+    {posts.length && currentPage === 1 ? <Divider>文章列表</Divider> : null}
+    <div class="segments posts">
+      {posts.length && posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </div>
+  <Pagination totalCount={totalCount} currentPage={currentPage} />
+</div>

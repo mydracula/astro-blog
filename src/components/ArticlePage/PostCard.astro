@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import getWordCount from '@utils/getWordCount'
 import escapeHTML from '@utils/getStripHtml'
+import cover from '@utils/cover.js'
 dayjs.extend(utc)
 const { post } = Astro.props
 
@@ -16,7 +17,7 @@ if (post.frontmatter.rawContent) {
 
 <article class="item">
   <div class="cover">
-    <a href="/notice/" itemprop="url" title={post.frontmatter.title}> <img data-src="https://gitee.com/zkz0/image/raw/master/img/img(96).webp" alt="article cover" /></a>
+    <a href={`/posts/${post.frontmatter.abbrlink}/`} itemprop="url" title={post.frontmatter.title}> <img data-src={cover(0)} alt="article cover" /></a>
   </div>
   <div class="info">
     <div class="meta">
@@ -37,8 +38,8 @@ if (post.frontmatter.rawContent) {
         </span>
         <span>{time}</span>
       </span>
-    </div><h3><a href="/notice/" itemprop="url" title={post.frontmatter.title}>{post.frontmatter.title}</a></h3><div class="excerpt">
+    </div><h3><a href={`/posts/${post.frontmatter.abbrlink}/`} itemprop="url" title={post.frontmatter.title}>{post.frontmatter.title}</a></h3><div class="excerpt">
       {post.frontmatter.description || escapeHTML(post.rawContent())}
-    </div><a href="/notice/" itemprop="url" title={post.frontmatter.title} class="btn">more...</a>
+    </div><a href={`/posts/${post.frontmatter.abbrlink}/`} itemprop="url" title={post.frontmatter.title} class="btn">more...</a>
   </div>
 </article>
