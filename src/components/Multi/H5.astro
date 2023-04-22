@@ -1,0 +1,8 @@
+---
+const { id } = Astro.props
+---
+
+<h5 id={id} class="active">
+  <a class="anchor" href={`#${id}`}>#</a>
+  {id}
+</h5>

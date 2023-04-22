@@ -10,15 +10,21 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/mdx": "^0.18.3",
     "@astrojs/svelte": "^2.1.0",
     "@unocss/reset": "^0.50.6",
     "animejs": "^3.2.1",
     "astro": "^2.1.8",
     "astro-compress": "^1.1.35",
     "dayjs": "^1.11.7",
+    "hast-util-to-string": "^2.0.0",
     "lozad": "^1.16.0",
     "mdast-util-to-string": "^3.2.0",
+    "rehype-parse": "^8.0.4",
+    "rehype-pretty-code": "^0.9.5",
     "svelte": "^3.57.0",
+    "unified": "^10.1.2",
+    "unist-util-remove-position": "^4.0.2",
     "unist-util-visit": "^4.1.2",
     "vite-plugin-permalink": "^1.1.4"
   },
