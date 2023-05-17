@@ -855,7 +855,6 @@ const sidebarTOC = function () {
     }
   }
   const navItems = $dom.all('.contents li')
-
   if (navItems.length < 1) {
     return
   }
@@ -1079,7 +1078,7 @@ export const siteRefresh = function (reload) {
   resizeHandle()
   menuActive()
   sideBarTab()
-  // sidebarTOC()
+  sidebarTOC()
   // registerExtURL()
   // postBeauty()
   // tabFormat()

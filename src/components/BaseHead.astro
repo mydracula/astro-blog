@@ -29,13 +29,14 @@ const { title = '232', description = '232', image = '/头像方.png' } = Astro.p
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
-
+<script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script>
 <link
   rel="stylesheet"
   href="https://fonts.loli.net/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext"
 />
 <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/pace/1.0.2/pace.min.js"></script>
-<script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script>
+<link rel="stylesheet" href="https://testingcf.jsdelivr.net/gh/mydracula/image@master/20230427/c3af3cd130cd4326bdee503f9f375bdc.css" data-noprefix />
+<script src="https://prismjs.com/prism.js"></script>
 <script>
   import { themeColorListener } from '@utils/dom'
   themeColorListener()

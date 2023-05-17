@@ -1,15 +1,18 @@
 ---
 import Divider from '@components/ArticlePage/Divider.astro'
 import Overview from './Overview.astro'
-const { page } = Astro.props
+import Toc from './Toc.astro'
+import Related from './Related.astro'
+
+const { page, frontmatter } = Astro.props
 ---
 
 <div id="sidebar">
   <div class="inner">
     <div class="panels">
       <div class="inner">
-        <div class="contents panel pjax"></div>
-        <div class="related panel pjax"></div>
+        <Toc class="panel" frontmatter={frontmatter} />
+        <Related class="panel" />
         <Overview class="panel" />
       </div>
     </div>

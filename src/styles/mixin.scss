@@ -23,9 +23,6 @@ $zindex-5: 9999;
 }
 
 @mixin disable-user-select() {
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -webkit-user-select: none;
   user-select: none;
 }
 

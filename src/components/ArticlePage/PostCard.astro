@@ -9,7 +9,7 @@ const { post } = Astro.props
 
 let { words, time } = { words: 0, time: '' }
 if (post.frontmatter.rawContent) {
-  // ;({ words, time } = getWordCount(post.frontmatter.rawContent))
+  ;({ words, time } = getWordCount(post.frontmatter.rawContent))
 } else if (!post.frontmatter.isMdx) {
   ;({ words, time } = getWordCount(post.rawContent()))
 }
@@ -38,9 +38,8 @@ if (post.frontmatter.rawContent) {
         </span>
         <span>{time}</span>
       </span>
-      <!-- || escapeHTML(post.rawContent()) -->
     </div><h3><a href={`/posts/${post.frontmatter.abbrlink}/`} itemprop="url" title={post.frontmatter.title}>{post.frontmatter.title}</a></h3><div class="excerpt">
-      {post.frontmatter.description}
+      {post.frontmatter.description || escapeHTML(post.rawContent())}
     </div><a href={`/posts/${post.frontmatter.abbrlink}/`} itemprop="url" title={post.frontmatter.title} class="btn">more...</a>
   </div>
 </article>

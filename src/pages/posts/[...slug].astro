@@ -1,19 +1,19 @@
 ---
-import { CollectionEntry, getCollection } from 'astro:content'
+import { getCollection } from 'astro:content'
 import BlogPost from '@layouts/BlogPost.astro'
-import { log } from 'astro/dist/core/logger/core'
 export async function getStaticPaths() {
   const posts = await getCollection('blog')
   return posts.map((post) => {
     return {
       params: { slug: post.data.abbrlink },
-      props: post
+      props: { post }
     }
   })
 }
-
 const { slug } = Astro.params
-const post = Astro.props
+const { post } = Astro.props
+const posts = await getCollection('blog')
+const target = await posts.find((i) => i.data.abbrlink.toString() === slug)?.render()
 ---
 
-<BlogPost post={post} />
+<BlogPost post={post} frontmatter={target.remarkPluginFrontmatter} />

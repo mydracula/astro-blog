@@ -1,12 +1,12 @@
 ---
 import Sidebar from '@components/Sidebar/Index.astro'
-const { page } = Astro.props
+const { page, frontmatter } = Astro.props
 ---
 
 <main>
   <div class="inner">
     <slot />
-    <Sidebar page={page} />
+    <Sidebar page={page} frontmatter={frontmatter} />
   </div>
 </main>
 

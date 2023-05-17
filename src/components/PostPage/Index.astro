@@ -1,9 +1,9 @@
 ---
 import Common from '@components/Common.astro'
 import Main from './Main.astro'
-const { page, post } = Astro.props
+const { page, post, frontmatter } = Astro.props
 ---
 
-<Common page={page}>
+<Common page={page} frontmatter={frontmatter}>
   <Main post={post} />
 </Common>

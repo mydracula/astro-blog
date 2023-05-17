@@ -1,0 +1,9 @@
+---
+const { class: className, frontmatter } = Astro.props
+---
+
+<div class={`contents ${className} pjax`} data-title="文章目录">
+  {frontmatter && <Fragment set:html={frontmatter.toc} />}
+</div>
+
+<style lang="scss"></style>
