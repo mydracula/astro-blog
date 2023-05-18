@@ -1,10 +1,8 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro'
 import PostPage from '@components/PostPage/Index.astro'
-
-const { post, frontmatter } = Astro.props
 ---
 
 <BaseLayout>
-  <PostPage post={post} frontmatter={frontmatter} />
+  <PostPage />
 </BaseLayout>

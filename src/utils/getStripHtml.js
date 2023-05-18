@@ -1,13 +1,13 @@
-function convertMarkdownToPlainText(markdownStr) {
-  markdownStr = markdownStr
+function convertMarkdownToPlainText(markdownStr, length = 296) {
+  const excerpt = markdownStr
     .replace(/\[([^\]]+)\]\(([^\)]+)\)/gm, '$1')
     .replace(/^#+\s+(.*)$/gm, '# $1')
     .replace(/```([\s\S]*?)```/g, '')
     .replace(/`(.+?)`/g, '$1')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .substr(0, 300)
-  return markdownStr
+    .replace(/\n|\r/g, '')
+    .substr(0, length)
+
+  return excerpt.length >= length ? excerpt.slice(0, length) + '...' : excerpt
 }
 
 export default convertMarkdownToPlainText

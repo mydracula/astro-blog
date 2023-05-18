@@ -1,20 +1,22 @@
 ---
+import { getCollection } from 'astro:content'
+
 import BaseLayout from '@layouts/BaseLayout.astro'
 import ArticlePage from '@components/ArticlePage/Index.astro'
 import Footer from '@components/Footer/Index.astro'
+import { allPostList, pageProp } from '@stores/posts'
 
 export async function getStaticPaths({ paginate }: { paginate: any }) {
-  const allPosts = await Astro.glob('/src/content/blog/*.{md,mdx}')
-  const sortedPosts = allPosts.sort((a, b) => Number(new Date(b.frontmatter.date)) - Number(new Date(a.frontmatter.date)))
-  return paginate(sortedPosts, {
+  const allPosts = (await getCollection('posts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  allPostList.set(allPosts)
+  return paginate(allPosts, {
     pageSize: 10
   })
 }
-
-const { page } = Astro.props
+pageProp.set(Astro.props)
 ---
 
 <BaseLayout>
-  <ArticlePage page={page} />
+  <ArticlePage />
   <Footer />
 </BaseLayout>

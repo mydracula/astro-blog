@@ -1,10 +1,10 @@
 ---
-import Divider from '@components/ArticlePage/Divider.astro'
 import Overview from './Overview.astro'
 import Toc from './Toc.astro'
 import Related from './Related.astro'
-
-const { page, frontmatter } = Astro.props
+import { pageProp, postProp } from '@stores/posts'
+const page = pageProp.get()
+const frontmatter = (await postProp.get().render()).remarkPluginFrontmatter
 ---
 
 <div id="sidebar">
@@ -43,7 +43,6 @@ const { page, frontmatter } = Astro.props
   </div>
 </div>
 <div class="dimmer"></div>
-
 <style lang="scss">
   #sidebar {
     position: static;

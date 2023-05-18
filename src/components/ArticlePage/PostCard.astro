@@ -8,22 +8,18 @@ dayjs.extend(utc)
 const { post } = Astro.props
 
 let { words, time } = { words: 0, time: '' }
-if (post.frontmatter.rawContent) {
-  ;({ words, time } = getWordCount(post.frontmatter.rawContent))
-} else if (!post.frontmatter.isMdx) {
-  ;({ words, time } = getWordCount(post.rawContent()))
-}
+;({ words, time } = getWordCount(post.body))
 ---
 
 <article class="item">
   <div class="cover">
-    <a href={`/posts/${post.frontmatter.abbrlink}/`} itemprop="url" title={post.frontmatter.title}> <img data-src={cover(0)} alt="article cover" /></a>
+    <a href={`/posts/${post.data.abbrlink}/`} itemprop="url" title={post.data.title}> <img data-src={cover(0)} alt="article cover" /></a>
   </div>
   <div class="info">
     <div class="meta">
-      <span class="item" title={`创建时间：${post.frontmatter.date}`}>
+      <span class="item" title={`创建时间：${post.data.date}`}>
         <span class="icon"><i class="ic i-calendar"></i></span>
-        <time itemprop="dateCreated datePublished" datetime={post.frontmatter.date}>{dayjs.utc(post.frontmatter.date).format('YYYY-MM-DD')}</time>
+        <time itemprop="dateCreated datePublished" datetime={post.data.date}>{dayjs.utc(post.data.date).format('YYYY-MM-DD')}</time>
       </span>
       <span class="item" title="本文字数">
         <span class="icon">
@@ -38,8 +34,8 @@ if (post.frontmatter.rawContent) {
         </span>
         <span>{time}</span>
       </span>
-    </div><h3><a href={`/posts/${post.frontmatter.abbrlink}/`} itemprop="url" title={post.frontmatter.title}>{post.frontmatter.title}</a></h3><div class="excerpt">
-      {post.frontmatter.description || escapeHTML(post.rawContent())}
-    </div><a href={`/posts/${post.frontmatter.abbrlink}/`} itemprop="url" title={post.frontmatter.title} class="btn">more...</a>
+    </div><h3><a href={`/posts/${post.data.abbrlink}/`} itemprop="url" title={post.data.title}>{post.data.title}</a></h3><div class="excerpt">
+      {post.data.description || escapeHTML(post.body)}
+    </div><a href={`/posts/${post.data.abbrlink}/`} itemprop="url" title={post.data.title} class="btn">more...</a>
   </div>
 </article>

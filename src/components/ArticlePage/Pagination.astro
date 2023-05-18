@@ -1,5 +1,7 @@
 ---
-const { totalCount, currentPage } = Astro.props
+
+import { pageProp } from '@stores/posts'
+const { total: totalCount, currentPage } = pageProp.get().page
 
 const getPages = () => {
   if (totalCount < 4) return new Array(totalCount).fill(1).map((num, index) => num + index)

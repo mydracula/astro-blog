@@ -1,8 +1,7 @@
 ---
-const { post } = Astro.props
-const { Content } = await post.render()
-
 import { components } from '@components/Multi/myHeading.js'
+import { postProp } from '@stores/posts'
+const { Content } = await postProp.get().render()
 ---
 
 <div class="pjax" id="main">

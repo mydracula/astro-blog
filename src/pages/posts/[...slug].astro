@@ -1,19 +1,19 @@
 ---
+import { allPostList, postProp } from '@stores/posts'
 import { getCollection } from 'astro:content'
 import BlogPost from '@layouts/BlogPost.astro'
 export async function getStaticPaths() {
-  const posts = await getCollection('blog')
-  return posts.map((post) => {
+  const allPosts = (await getCollection('posts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  allPostList.set(allPosts)
+  return allPosts.map((post) => {
     return {
-      params: { slug: post.data.abbrlink },
-      props: { post }
+      params: { slug: post.data.abbrlink }
     }
   })
 }
 const { slug } = Astro.params
-const { post } = Astro.props
-const posts = await getCollection('blog')
-const target = await posts.find((i) => i.data.abbrlink.toString() === slug)?.render()
+const post = await allPostList.get().find((i) => i.data.abbrlink.toString() === slug)
+postProp.set(post)
 ---
 
-<BlogPost post={post} frontmatter={target.remarkPluginFrontmatter} />
+<BlogPost />
