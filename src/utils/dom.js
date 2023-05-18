@@ -753,7 +753,6 @@ const sideBarTab = function () {
   const sideBarInner = sideBar.child('.inner')
   const panels = sideBar.find('.panel')
 
-  console.log(sideBar, 'sideBar', sideBarInner, '=>', sideBar.querySelector('.tab'))
   if (sideBar.child('.tab')) {
     sideBarInner.removeChild(sideBar.child('.tab'))
   }
