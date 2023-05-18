@@ -4,7 +4,8 @@ import Toc from './Toc.astro'
 import Related from './Related.astro'
 import { pageProp, postProp } from '@stores/posts'
 const page = pageProp.get()
-const frontmatter = (await postProp.get().render()).remarkPluginFrontmatter
+const post = postProp.get()
+const { remarkPluginFrontmatter: frontmatter } = (await post?.render()) || {}
 ---
 
 <div id="sidebar">

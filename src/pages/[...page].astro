@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content'
 import BaseLayout from '@layouts/BaseLayout.astro'
 import ArticlePage from '@components/ArticlePage/Index.astro'
 import Footer from '@components/Footer/Index.astro'
-import { allPostList, pageProp } from '@stores/posts'
+import { allPostList, pageProp, postProp } from '@stores/posts'
 
 export async function getStaticPaths({ paginate }: { paginate: any }) {
   const allPosts = (await getCollection('posts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -14,6 +14,7 @@ export async function getStaticPaths({ paginate }: { paginate: any }) {
   })
 }
 pageProp.set(Astro.props)
+postProp.set()
 ---
 
 <BaseLayout>
