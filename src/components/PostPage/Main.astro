@@ -1,17 +1,75 @@
 ---
+import Footer from './Footer.astro'
 import { components } from '@components/Multi/myHeading.js'
 import { postProp } from '@stores/posts'
-const { Content } = await postProp.get().render()
+const { Content, remarkPluginFrontmatter } = await postProp.get().render()
+const { category } = remarkPluginFrontmatter
 ---
 
 <div class="pjax" id="main">
   <dir class="article wrap">
     <div class="breadcrumb" itemtype="https://schema.org/BreadcrumbList">
-      <article class="post block" itemscope="" itemtype="http://schema.org/Article" lang="zh-CN">
-        <div class="body md" itemprop="articleBody">
-          <Content components={components} />
-        </div>
-      </article>
+      <i class="ic i-home"></i>
+      <span><a href="/">首页</a></span>
+      <i class="ic i-angle-right"></i>
+      {
+        category.map((item, index) => {
+          return (
+            <>
+              <span class={index + 1 === category.length ? 'current' : ''} itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+                <>
+                  <a href={`/categories/${item}/`} itemprop="item" rel="index" title={`分类于 ${item}`}>
+                    <span itemprop="name">{item}</span>
+                  </a>
+                  <meta itemprop="position" content={index + 1} />
+                </>
+              </span>
+              {index + 1 !== category.length && <i class="ic i-angle-right" />}
+            </>
+          )
+        })
+      }
     </div>
+    <article class="post block" itemscope="" itemtype="http://schema.org/Article" lang="zh-CN">
+      <div class="body md" itemprop="articleBody">
+        <Content components={components} />
+        <Footer />
+      </div>
+    </article>
   </dir>
 </div>
+
+<style lang="scss">
+  .breadcrumb {
+    display: inline-flex;
+    font-size: $font-size-smaller;
+    align-items: center;
+    margin: 1.25rem 0;
+    flex-wrap: wrap;
+
+    .ic {
+      margin: 0 0.125rem;
+      color: var(--grey-4);
+
+      &:nth-child(1) {
+        margin-left: 0;
+        margin-right: 0.3125rem;
+      }
+    }
+
+    span.current {
+      background-color: var(--color-red-a1);
+      border-radius: 0.625rem;
+      padding: 0 0.625rem;
+      @include the-transition();
+
+      a {
+        color: var(--primary-color);
+      }
+
+      &:hover {
+        background-color: var(--color-red-a3);
+      }
+    }
+  }
+</style>

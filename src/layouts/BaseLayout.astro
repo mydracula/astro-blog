@@ -6,6 +6,7 @@ import BaseHead from '@components/BaseHead.astro'
 import GlobalContainer from '@components/GlobalContainer.astro'
 import Header from '@components/Header/Index.astro'
 import Loading from '@components/Loading.astro'
+import Footer from '@components/Footer/Index.astro'
 ---
 
 <html lang="en">
@@ -17,6 +18,7 @@ import Loading from '@components/Loading.astro'
     <div id="container">
       <Header />
       <slot />
+      <Footer />
     </div>
   </GlobalContainer>
 </html>

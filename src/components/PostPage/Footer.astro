@@ -1,0 +1,126 @@
+<footer>
+  <div class="meta">
+    <span class="item"
+      ><span class="icon"><i class="ic i-calendar-check"></i></span><span class="text">更新于</span>
+      <time title="修改时间：2022-03-12 17:03:09" itemprop="dateModified" datetime="2022-03-12T17:03:09+08:00">2022-03-12</time>
+    </span><span id="posts/61283/" class="item leancloud_visitors" data-flag-title="vue-quill-editor 修改内置视频标签" title="阅读次数"
+      ><span class="icon"><i class="ic i-eye"></i></span><span class="text">阅读次数</span> <span class="leancloud-visitors-count">65</span> <span class="text">次</span></span
+    >
+  </div>
+  <div class="reward">
+    <button><i class="ic i-heartbeat"></i> 赞赏</button><p>请我喝[茶]~(￣▽￣)~*</p><div id="qr">
+      <div><img data-src="/images/wechatpay.png" alt="山河 微信支付" /><p>微信支付</p></div><div><img data-src="/images/alipay.png" alt="山河 支付宝" /><p>支付宝</p></div><div>
+        <img data-src="/images/paypal.png" alt="山河 贝宝" /><p>贝宝</p>
+      </div>
+    </div>
+  </div><div id="copyright">
+    <ul>
+      <li class="author"><strong>本文作者：</strong>山河 <i class="ic i-at"><em>@</em></i>山河</li><li class="link">
+        <strong>本文链接：</strong>
+        <a href="https://sang.pub/posts/61283/" title="vue-quill-editor 修改内置视频标签" data-pjax-state="">https://sang.pub/posts/61283/</a>
+      </li><li class="license">
+        <strong>版权声明：</strong>本站所有文章除特别声明外，均采用 <a
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+          rel="noopener external nofollow noreferrer"
+          target="_blank"
+          class="exturl"
+          title="(CC)BY-NC-SA"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</a
+        > 许可协议。转载请注明出处！
+      </li>
+    </ul>
+  </div>
+</footer>
+
+<style lang="scss">
+  .reward {
+    margin: 1.25rem auto;
+    padding: 0.625rem 0;
+    text-align: center;
+
+    button {
+      background: var(--primary-color);
+      border: 0;
+      border-radius: 0.3125rem;
+      color: var(--grey-0);
+      cursor: pointer;
+      line-height: 2;
+      outline: 0;
+      padding: 0 0.9375rem;
+      vertical-align: text-top;
+
+      &:hover {
+        background: var(--primary-color);
+      }
+
+      i {
+        margin-right: 0.3125rem;
+      }
+    }
+
+    p {
+      font-size: $font-size-smaller;
+      color: var(--grey-5);
+      margin: 0;
+    }
+  }
+
+  #qr {
+    padding-top: 1.25rem;
+    display: none;
+
+    a {
+      border: 0;
+    }
+
+    img {
+      display: inline-block;
+      max-width: 100%;
+    }
+
+    p {
+      text-align: center;
+    }
+  }
+
+  #copyright {
+    background: var(--grey-2);
+    padding: 1rem 2rem;
+    position: relative;
+    font-size: $font-size-smallest;
+    border-radius: 0.625rem;
+    color: var(--grey-6);
+
+    li {
+      &::before {
+        @include font-family-icons();
+        color: var(--grey-5);
+        margin-right: 0.3125rem;
+        font-size: 1.1rem;
+        line-height: 0.75rem;
+        vertical-align: -0.0667rem;
+      }
+    }
+
+    .author::before {
+      @include icon-before('\e69d');
+    }
+
+    .link::before {
+      @include icon-before('\e67b');
+    }
+
+    .license::before {
+      @include icon-before('\e61b');
+    }
+    // &::before {
+    //   content: "";
+    //   position: absolute;
+    //   width: .3125rem;
+    //   height: 100%;
+    //   left: -.3125rem;
+    //   top: 0rem;
+    //   background: var(--primary-color);
+    //   border-radius: .375rem;
+    // }
+  }
+</style>
