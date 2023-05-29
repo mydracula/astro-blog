@@ -1,32 +1,36 @@
 ---
 
 import { pageProp } from '@stores/posts'
-const { total: totalCount, currentPage } = pageProp.get().page
+const { total, currentPage } = pageProp.get().page
+
+
+const pages = Math.ceil(total / 10)
+
 
 const getPages = () => {
-  if (totalCount < 4) return new Array(totalCount).fill(1).map((num, index) => num + index)
+  if (pages < 4) return new Array(pages).fill(1).map((num, index) => num + index)
   const startDiff = Math.abs(currentPage - 1)
-  const endDiff = Math.abs(currentPage - totalCount)
+  const endDiff = Math.abs(currentPage - pages)
   const diff = startDiff <= endDiff ? startDiff : endDiff
   if (diff == 0) {
-    if (currentPage === totalCount) return [1, '...', totalCount - 1, totalCount]
-    return [1, 2, '...', totalCount]
+    if (currentPage === pages) return [1, '...', pages - 1, pages]
+    return [1, 2, '...', pages]
   }
   if (diff == 1) {
-    if (totalCount <= 4) return Array.from({ length: totalCount }, (v, i) => i + 1)
-    if (totalCount - 1 === currentPage) return [1, '...', currentPage - 1, currentPage, totalCount]
-    return [1, 2, 3, '...', totalCount]
+    if (pages <= 4) return Array.from({ length: pages }, (v, i) => i + 1)
+    if (pages - 1 === currentPage) return [1, '...', currentPage - 1, currentPage, pages]
+    return [1, 2, 3, '...', pages]
   }
   if (diff == 2) {
-    if (totalCount <= 5) {
-      if ((1 + totalCount) / 2 === currentPage) return Array.from({ length: totalCount }, (v, i) => i + 1)
+    if (pages <= 5) {
+      if ((1 + pages) / 2 === currentPage) return Array.from({ length: pages }, (v, i) => i + 1)
     }
-    if (currentPage + 1 === totalCount - 1) return [1, '...', currentPage - 1, currentPage, currentPage + 1, totalCount]
-    if (currentPage - 1 === 1 + 1) return [1, currentPage - 1, currentPage, currentPage + 1, '...', totalCount]
+    if (currentPage + 1 === pages - 1) return [1, '...', currentPage - 1, currentPage, currentPage + 1, pages]
+    if (currentPage - 1 === 1 + 1) return [1, currentPage - 1, currentPage, currentPage + 1, '...', pages]
   }
   if (diff > 2) {
-    if (totalCount <= 4) return [1, '...', totalCount - 1, totalCount]
-    return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalCount]
+    if (pages <= 4) return [1, '...', pages - 1, pages]
+    return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', pages]
   }
 }
 ---
@@ -54,7 +58,7 @@ const getPages = () => {
     }
 
     {
-      totalCount > currentPage && (
+      total > currentPage && (
         <a class="next" href={`/page/${currentPage + 1}/`}>
           <i class="ic i-angle-right" aria-label="下一页" />
         </a>
