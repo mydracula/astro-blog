@@ -1,5 +1,6 @@
 ---
 import Footer from './Footer.astro'
+import PostNav from './PostNav.astro'
 import { components } from '@components/Multi/myHeading.js'
 import { postProp } from '@stores/posts'
 const { Content, remarkPluginFrontmatter } = await postProp.get().render()
@@ -37,39 +38,5 @@ const { category } = remarkPluginFrontmatter
       </div>
     </article>
   </dir>
+  <PostNav />
 </div>
-
-<style lang="scss">
-  .breadcrumb {
-    display: inline-flex;
-    font-size: $font-size-smaller;
-    align-items: center;
-    margin: 1.25rem 0;
-    flex-wrap: wrap;
-
-    .ic {
-      margin: 0 0.125rem;
-      color: var(--grey-4);
-
-      &:nth-child(1) {
-        margin-left: 0;
-        margin-right: 0.3125rem;
-      }
-    }
-
-    span.current {
-      background-color: var(--color-red-a1);
-      border-radius: 0.625rem;
-      padding: 0 0.625rem;
-      @include the-transition();
-
-      a {
-        color: var(--primary-color);
-      }
-
-      &:hover {
-        background-color: var(--color-red-a3);
-      }
-    }
-  }
-</style>

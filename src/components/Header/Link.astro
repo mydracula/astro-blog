@@ -1,5 +1,7 @@
 ---
 const { class: className, to, icon, text } = Astro.props
+
+
 ---
 
 <li class={`item ${className}`}>
@@ -15,7 +17,7 @@ const { class: className, to, icon, text } = Astro.props
     }
   </a>
   {
-    className.indexOf('dropdown') != -1 ? (
+     Boolean(className) && className.indexOf('dropdown') != -1 ? (
       <ul class="submenu">
         <slot />
       </ul>

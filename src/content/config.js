@@ -5,7 +5,8 @@ const posts = defineCollection({
     .object({
       title: z.string().nonempty(),
       date: z.date(),
-      abbrlink: z.number()
+      abbrlink: z.number(),
+      category: z.array(z.string()).default([])
     })
     .merge(
       z.object({

@@ -1,5 +1,83 @@
 ---
+import { postProp, allPostList } from '@stores/posts'
 const { class: className } = Astro.props
+const props = postProp.get()
+const category = props?.data.category.at(-1)
+const abbrlink = props?.data.abbrlink
+const lists = allPostList.get()
+const related = lists.filter((i) => category && i.data.category.includes(category))
 ---
 
-<div class={`related ${className}  pjax`} data-title="系列文章"></div>
+<div class={`related ${className}  pjax`} data-title="系列文章">
+  {
+    Boolean(related.length) && (
+      <ul>
+        {related.map((i) => (
+          <li class={abbrlink == i.data.abbrlink ? 'active' : ''}>
+            <a href={`/posts/${i.data.abbrlink}/`} rel="bookmark" title={i.data.title}>
+              {i.data.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</div>
+
+<style lang="scss">
+  .related {
+    font-size: $font-size-small;
+
+    ul {
+      padding: 0 0.125rem 0.3125rem 1.25rem;
+      text-align: left;
+
+      li {
+        position: relative;
+        line-height: 1.8;
+        padding-bottom: 0.625rem;
+
+        a {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          width: 100%;
+          display: inline-block;
+        }
+
+        &.active a {
+          color: var(--primary-color);
+        }
+
+        &::before {
+          content: '';
+          width: 0.5rem;
+          height: 0.5rem;
+          background: var(--primary-color);
+          box-sizing: unset;
+          left: -1.25rem;
+          top: 0.3125rem;
+          border-radius: 100%;
+          position: absolute;
+          border: 0.1875rem solid var(--grey-1);
+          z-index: $zindex-1;
+          @include the-transition();
+        }
+
+        &:hover::before {
+          background: var(--color-blue);
+        }
+
+        &:not(:last-child)::after {
+          content: '';
+          height: 100%;
+          width: 0.125rem;
+          background: var(--color-red-a3);
+          position: absolute;
+          left: -0.875rem;
+          top: 0.5rem;
+        }
+      }
+    }
+  }
+</style>

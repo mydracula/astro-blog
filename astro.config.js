@@ -8,6 +8,7 @@ import mdx from '@astrojs/mdx'
 
 // https://astro.build/config
 export default defineConfig({
+  compressHTML: true,
   integrations: [unocss(), mdx(), InjectJSCSS(), compress()],
   markdown: {
     // syntaxHighlight: false,

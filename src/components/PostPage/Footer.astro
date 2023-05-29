@@ -1,3 +1,10 @@
+---
+import { postProp } from '@stores/posts'
+const res = await postProp.get().render()
+
+// console.log(res, '=>>>>')
+---
+
 <footer>
   <div class="meta">
     <span class="item"
@@ -17,7 +24,7 @@
     <ul>
       <li class="author"><strong>本文作者：</strong>山河 <i class="ic i-at"><em>@</em></i>山河</li><li class="link">
         <strong>本文链接：</strong>
-        <a href="https://sang.pub/posts/61283/" title="vue-quill-editor 修改内置视频标签" data-pjax-state="">https://sang.pub/posts/61283/</a>
+        <a href="https://sang.pub/posts/61283/" title="vue-quill-editor 修改内置视频标签">https://sang.pub/posts/61283/</a>
       </li><li class="license">
         <strong>版权声明：</strong>本站所有文章除特别声明外，均采用 <a
           href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
@@ -30,97 +37,3 @@
     </ul>
   </div>
 </footer>
-
-<style lang="scss">
-  .reward {
-    margin: 1.25rem auto;
-    padding: 0.625rem 0;
-    text-align: center;
-
-    button {
-      background: var(--primary-color);
-      border: 0;
-      border-radius: 0.3125rem;
-      color: var(--grey-0);
-      cursor: pointer;
-      line-height: 2;
-      outline: 0;
-      padding: 0 0.9375rem;
-      vertical-align: text-top;
-
-      &:hover {
-        background: var(--primary-color);
-      }
-
-      i {
-        margin-right: 0.3125rem;
-      }
-    }
-
-    p {
-      font-size: $font-size-smaller;
-      color: var(--grey-5);
-      margin: 0;
-    }
-  }
-
-  #qr {
-    padding-top: 1.25rem;
-    display: none;
-
-    a {
-      border: 0;
-    }
-
-    img {
-      display: inline-block;
-      max-width: 100%;
-    }
-
-    p {
-      text-align: center;
-    }
-  }
-
-  #copyright {
-    background: var(--grey-2);
-    padding: 1rem 2rem;
-    position: relative;
-    font-size: $font-size-smallest;
-    border-radius: 0.625rem;
-    color: var(--grey-6);
-
-    li {
-      &::before {
-        @include font-family-icons();
-        color: var(--grey-5);
-        margin-right: 0.3125rem;
-        font-size: 1.1rem;
-        line-height: 0.75rem;
-        vertical-align: -0.0667rem;
-      }
-    }
-
-    .author::before {
-      @include icon-before('\e69d');
-    }
-
-    .link::before {
-      @include icon-before('\e67b');
-    }
-
-    .license::before {
-      @include icon-before('\e61b');
-    }
-    // &::before {
-    //   content: "";
-    //   position: absolute;
-    //   width: .3125rem;
-    //   height: 100%;
-    //   left: -.3125rem;
-    //   top: 0rem;
-    //   background: var(--primary-color);
-    //   border-radius: .375rem;
-    // }
-  }
-</style>

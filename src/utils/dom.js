@@ -754,6 +754,7 @@ const sideBarTab = function () {
   const panels = sideBar.find('.panel')
 
   if (sideBar.child('.tab')) {
+    console.log('zzz')
     sideBarInner.removeChild(sideBar.child('.tab'))
   }
 
@@ -762,7 +763,6 @@ const sideBarTab = function () {
   list.className = 'tab'
   ;['contents', 'related', 'overview'].forEach(function (item) {
     const element = sideBar.child('.panel.' + item)
-
     if (element.innerHTML.replace(/(^\s*)|(\s*$)/g, '').length < 1) {
       if (item === 'contents') {
         showContents.display('none')

@@ -1,0 +1,40 @@
+---
+import cover from '@utils/cover.js'
+import { postProp, allPostList } from '@stores/posts'
+const lists = allPostList.get()
+const index = lists.findIndex((i) => i.data.abbrlink === postProp.get().data.abbrlink)
+const covers = cover(2)
+const previous = lists.at(index + 1)
+const nextArticle = lists.at(index - 1)
+---
+
+<div class="post-nav">
+  {
+    index != lists.length - 1 && (
+      <div class="item left">
+        <a href={`/posts/${previous.data.abbrlink}`} itemprop="url" rel="prev" data-background-image={covers[0]} title={previous.data.title} class="lozaded">
+          <span class="type">上一篇</span>{' '}
+          <>
+            <span class="category">
+              <i class="ic i-flag" /> v-charts
+            </span>
+            <h3>{previous.data.title}</h3>
+          </>
+        </a>
+      </div>
+    )
+  }
+  {
+    index != 0 && (
+      <div class="item right">
+        <a href={`/posts/${nextArticle.data.abbrlink}`} itemprop="url" rel="next" data-background-image={covers[1]} title={nextArticle.data.title} class="lozaded">
+          <span class="type">下一篇</span>{' '}
+          <span class="category">
+            <i class="ic i-flag" /> Vue
+          </span>{' '}
+          <h3>{nextArticle.data.title}</h3>
+        </a>
+      </div>
+    )
+  }
+</div>
