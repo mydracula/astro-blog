@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content'
 
 import BaseLayout from '@layouts/BaseLayout.astro'
 import ArticlePage from '@components/ArticlePage/Index.astro'
-import { allPostList, pageProp, postProp } from '@stores/posts'
+import { allPostList, pageProp, postProp, metaProp } from '@stores/posts'
 
 export async function getStaticPaths({ paginate }: { paginate: any }) {
   const allPosts = (await getCollection('posts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -12,8 +12,16 @@ export async function getStaticPaths({ paginate }: { paginate: any }) {
     pageSize: 10
   })
 }
+
 pageProp.set(Astro.props)
 postProp.set()
+metaProp.set({
+  logo: {
+    artboard: 'Yume Shoka',
+    title: '山河'
+  },
+  meta: ['你喜欢我吗']
+})
 ---
 
 <BaseLayout>

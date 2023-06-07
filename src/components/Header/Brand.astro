@@ -1,92 +1,42 @@
 ---
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+dayjs.extend(utc)
+import { metaProp } from '@stores/posts'
+const { logo, meta, name } = metaProp.get()
 ---
 
 <div id="brand">
   <div class="pjax">
-    <a href="/" class="logo">
-      <p class="artboard">Yume Shoka</p>
-      <h1 class="title">優萌初華</h1>
-    </a>
-    <p class="meta">= 有夢書架 =</p>
+    {
+      Boolean(logo) ? (
+        <Fragment>
+          <a href="/" class="logo">
+            <p class="artboard">{logo.artboard}</p>
+            <h1 class="title">{logo.title}</h1>
+          </a>
+          <p class="meta">{meta[0]}</p>
+        </Fragment>
+      ) : (
+        <>
+          <h1 itemprop="name headline">{name}</h1>
+          {Boolean(meta) && (
+            <div class="meta">
+              <span class="item" title={`创建时间：${meta[0]}`}>
+                <>
+                  <span class="icon">
+                    <i class="ic i-calendar" />
+                  </span>
+                  <span class="text">发表于</span>
+                </>
+                <time itemprop="dateCreated datePublished" datetime={meta[0]}>
+                  {dayjs.utc(meta[0]).format('YYYY-MM-DD')}
+                </time>
+              </span>
+            </div>
+          )}
+        </>
+      )
+    }
   </div>
 </div>
-
-<style lang="scss">
-  #brand {
-    position: fixed;
-    padding: 3rem 5rem 0;
-    text-align: center;
-    width: 100%;
-    height: 50vh;
-    min-height: 10rem;
-
-    &.affix {
-      z-index: $zindex-0;
-    }
-
-    &,
-    .pjax {
-      @include the-flex();
-    }
-
-    .artboard {
-      font-family: $font-family-logo;
-      font-size: $font-size-logo;
-      line-height: 1.2;
-    }
-
-    h1 {
-      font-size: $font-size-title;
-      letter-spacing: 0.125rem;
-    }
-
-    .artboard + h1 {
-      margin: 0.625rem 0;
-    }
-
-    .sticky {
-      font-size: $font-size-smallest;
-      display: inline-block;
-      transform: rotate(30deg);
-      backface-visibility: hidden;
-    }
-
-    .meta {
-      display: flex;
-      font-size: $font-size-subtitle;
-      margin: 0;
-
-      .item + .item {
-        margin-left: 0.625rem;
-      }
-    }
-
-    @include tablet() {
-      .meta {
-        font-size: $font-size-smaller;
-      }
-    }
-
-    @include mobile() {
-      padding: 3rem 0.5rem 0;
-
-      h1 {
-        font-size: $font-size-largest;
-      }
-
-      .meta {
-        font-size: $font-size-smallest;
-
-        .text {
-          display: none;
-        }
-      }
-    }
-
-    @include mobile-smallest() {
-      .artboard {
-        font-size: $font-size-title;
-      }
-    }
-  }
-</style>

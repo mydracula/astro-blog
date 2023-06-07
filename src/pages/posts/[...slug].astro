@@ -1,5 +1,5 @@
 ---
-import { allPostList, postProp } from '@stores/posts'
+import { allPostList, postProp, metaProp } from '@stores/posts'
 import { getCollection } from 'astro:content'
 import BlogPost from '@layouts/BlogPost.astro'
 export async function getStaticPaths() {
@@ -14,6 +14,10 @@ export async function getStaticPaths() {
 const { slug } = Astro.params
 const post = await allPostList.get().find((i) => i.data.abbrlink.toString() === slug)
 postProp.set(post)
+metaProp.set({
+  name: post.data.title,
+  meta: [post.data.date]
+})
 ---
 
 <BlogPost />

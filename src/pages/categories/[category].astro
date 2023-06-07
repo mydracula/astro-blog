@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content'
+
+import BaseLayout from '@layouts/BaseLayout.astro'
+import Categories from '@components/Categories/Index.astro'
+import { allPostList, pageProp, postProp, metaProp } from '@stores/posts'
+
+export async function getStaticPaths({ paginate }: { paginate: any }) {
+  const allPosts = (await getCollection('posts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  allPostList.set(allPosts)
+  const flatArr = allPosts.map((i) => i.data.category)
+  const transformArray = (arr) => {
+    const { result, hash } = arr.reduce(
+      ({ result, hash }, subArr) => {
+        let parent = null
+        for (let i = 0; i < subArr.length; i++) {
+          let name = subArr[i]
+          if (i === 0) {
+            parent = name
+            if (!hash[name]) {
+              result.push({ name })
+              hash[name] = true
+            }
+          } else {
+            if (!hash[name + parent]) {
+              result.push({ name, parent })
+              hash[name + parent] = true
+            }
+          }
+          if (i === subArr.length - 1) {
+            parent = null
+          }
+        }
+        return { result, hash }
+      },
+      { result: [], hash: {} }
+    )
+    return result
+  }
+  const categorys = transformArray(flatArr)
+  return categorys.map((category) => {
+    return {
+      params: {
+        category: category.name
+      }
+    }
+  })
+}
+
+postProp.set()
+metaProp.set({
+  name: '全部分类'
+})
+---
+
+<BaseLayout>
+  <Categories />
+</BaseLayout>
