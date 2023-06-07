@@ -3,9 +3,9 @@ import { getCollection } from 'astro:content'
 
 import BaseLayout from '@layouts/BaseLayout.astro'
 import Categories from '@components/Categories/Index.astro'
-import { allPostList, pageProp, postProp, metaProp } from '@stores/posts'
+import { allPostList, categorieProp, categories, postProp, metaProp } from '@stores/posts'
 
-export async function getStaticPaths({ paginate }: { paginate: any }) {
+export async function getStaticPaths() {
   const allPosts = (await getCollection('posts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   allPostList.set(allPosts)
   const flatArr = allPosts.map((i) => i.data.category)
@@ -38,15 +38,25 @@ export async function getStaticPaths({ paginate }: { paginate: any }) {
     return result
   }
   const categorys = transformArray(flatArr)
+  categories.set(categorys)
   return categorys.map((category) => {
-    return {
-      params: {
-        category: category.name
+    return [
+      { params: { category: undefined } },
+      {
+        params: {
+          category: category.name
+        },
+        props: {
+          category: category.name
+        }
       }
-    }
+    ]
   })
 }
 
+const { category } = Astro.props
+
+categorieProp.set(category)
 postProp.set()
 metaProp.set({
   name: '全部分类'

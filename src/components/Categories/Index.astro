@@ -1,7 +1,206 @@
 ---
 import Common from '@components/Common.astro'
+import { categories,allPostList } from '@stores/posts'
+
+const categorys = categories.get()
+
+
+function getLength({ name }) {
+  return allPostList.get().filter((i) => i.data.category.includes(name)).length
+}
+
+
+const prepareQuery = (categories, parent) => {
+  const query = {} as any
+  let result
+  if (parent) {
+    query.parent = parent
+    const member = categories.find((i) => i.parent == query.parent)
+    result = member ? [member] : []
+  } else {
+    query.parent = undefined
+    result = categories.filter((i) => i.parent == query.parent)
+  }
+  return result.sort((a, b) => {
+    if (a < b) return -1
+    if (a > b) return 1
+    return 0
+  })
+}
+
+function getHtm() {
+  const depth = 3
+  const hierarchicalList = (level, parent?) => {
+    let result = ''
+    prepareQuery(categorys, parent).forEach((cat, i) => {
+      let child
+
+      if (level + 1 < depth) {
+        child = hierarchicalList(level + 1, cat.name)
+      }
+
+      let catname = `<a itemprop="url" href="">${cat.name}</a><small>( ${getLength(cat)} )</small>`
+
+      switch (level) {
+        case 0:
+          result += `<div><h2 class="item header">${catname}</h2>`
+          break
+
+        case 1:
+          result += `<h3 class="item section">${catname}</h3>`
+          break
+
+        case 2:
+          result += `<div class="item normal"><div class="title">${catname}</div></div>`
+          break
+      }
+
+      if (child) {
+        result += `${child}`
+      }
+
+      if (level === 0) {
+        result += '</div>'
+      }
+    })
+
+    return result
+  }
+
+  return hierarchicalList(0)
+}
 ---
 
 <Common>
-  <div id="main" class="pjax"><div class="collapse wrap"><h2 class="item title"><a href="/" data-pjax-state="">首页</a> <small>/</small> 目前共计 20 个分类</h2><div><h2 class="item header"><a itemprop="url" href="/categories/Hexo/" data-pjax-state="">Hexo</a><small>( 8 )</small></h2><h3 class="item section"><a itemprop="url" href="/categories/Hexo/Hellow/" data-pjax-state="">Hellow</a><small>( 1 )</small></h3></div><div><h2 class="item header"><a itemprop="url" href="/categories/Hugo/" data-pjax-state="">Hugo</a><small>( 1 )</small></h2></div><div><h2 class="item header"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/" data-pjax-state="">综合技术</a><small>( 22 )</small></h2><h3 class="item section"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/Caddy/" data-pjax-state="">Caddy</a><small>( 1 )</small></h3><h3 class="item section"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/Express/" data-pjax-state="">Express</a><small>( 1 )</small></h3><h3 class="item section"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/Git/" data-pjax-state="">Git</a><small>( 1 )</small></h3><h3 class="item section"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/Golang/" data-pjax-state="">Golang</a><small>( 1 )</small></h3><h3 class="item section"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/Html/" data-pjax-state="">Html</a><small>( 1 )</small></h3><h3 class="item section"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/Js/" data-pjax-state="">Js</a><small>( 1 )</small></h3><h3 class="item section"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/MySql/" data-pjax-state="">MySql</a><small>( 1 )</small></h3><h3 class="item section"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/Nginx/" data-pjax-state="">Nginx</a><small>( 1 )</small></h3><h3 class="item section"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/NodeJs/" data-pjax-state="">NodeJs</a><small>( 3 )</small></h3><h3 class="item section"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/Vue/" data-pjax-state="">Vue</a><small>( 4 )</small></h3><h3 class="item section"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/WebPack/" data-pjax-state="">WebPack</a><small>( 1 )</small></h3><h3 class="item section"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/Websocket/" data-pjax-state="">Websocket</a><small>( 1 )</small></h3><h3 class="item section"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/uniapp/" data-pjax-state="">uniapp</a><small>( 1 )</small></h3><h3 class="item section"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/v-charts/" data-pjax-state="">v-charts</a><small>( 1 )</small></h3><h3 class="item section"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/vue-quill-editor/" data-pjax-state="">vue-quill-editor</a><small>( 1 )</small></h3><h3 class="item section"><a itemprop="url" href="/categories/%E7%BB%BC%E5%90%88%E6%8A%80%E6%9C%AF/%E4%BA%91%E5%87%BD%E6%95%B0/" data-pjax-state="">云函数</a><small>( 2 )</small></h3></div></div></div>
+  <div id="main" class="pjax">
+    <div class="collapse wrap">
+      <Fragment set:html={getHtm()} />
+    </div>
+  </div>
 </Common>
+
+<style lang="scss" is:global>
+  .collapse {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-size: revert;
+    }
+    small {
+      color: var(--grey-4);
+      margin: auto 0.3125rem;
+    }
+
+    .item {
+      position: relative;
+      padding: 1.25rem 1.875rem;
+      margin: 0;
+
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: $zindex-1;
+        @include the-transition();
+        box-sizing: unset;
+        top: 1.9rem;
+        left: 0;
+        width: 0.6rem;
+        height: 0.6rem;
+        border: 0.15rem solid var(--primary-color);
+        border-radius: 50%;
+        background: var(--grey-1);
+      }
+
+      &:not(:last-child):not(.title)::after {
+        content: '';
+        position: absolute;
+        top: 1.9rem;
+        bottom: -1.9rem;
+        left: 0.35rem;
+        border-left: 0.2rem solid var(--color-red-a3);
+      }
+
+      &:hover::before {
+        border-color: var(--color-blue);
+      }
+    }
+
+    .item.header {
+      &::after {
+        border-left-style: dashed !important;
+      }
+
+      .cheers {
+        display: block;
+      }
+    }
+
+    .item.section {
+      &::before {
+        width: 0.4rem;
+        height: 0.4rem;
+        margin-left: 0.1rem;
+      }
+    }
+
+    .item.title,
+    .item.header,
+    .item.section {
+      a {
+        border-bottom: 0.0625rem dashed var(--grey-4);
+      }
+      &:hover a {
+        border-bottom-color: var(--color-blue);
+      }
+    }
+
+    .item.normal {
+      &::before {
+        top: 1.4rem;
+        width: 0.2rem;
+        height: 0.2rem;
+        margin-left: 0.2rem;
+        background: var(--primary-color);
+      }
+
+      &:hover::before {
+        background: var(--color-blue);
+      }
+
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 0.625rem 1.875rem;
+
+      .meta {
+        display: inline;
+        font-size: $font-size-smallest;
+        margin-right: 0.625rem;
+
+        time {
+          color: var(--grey-4);
+        }
+      }
+
+      .title {
+        display: inline;
+
+        a {
+          color: var(--primary-color);
+
+          &:hover {
+            color: var(--color-blue);
+          }
+        }
+
+        .i-link-alt {
+          font-size: $font-size-small;
+          margin-left: 0.3125rem;
+        }
+      }
+    }
+  }
+</style>
