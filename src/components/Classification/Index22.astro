@@ -1,0 +1,120 @@
+---
+import Common from '@components/Common.astro'
+import { categories, allPostList, categorieProp } from '@stores/posts'
+
+const categorys = categories.get()
+let category = categorieProp.get()
+category = category ? category.split('/').at(-1) : undefined
+
+function getLength({ name }) {
+  return allPostList.get().filter((i) => i.data.category.includes(name)).length
+}
+
+const prepareQuery = (categories, parent) => {
+  const query = {} as any
+  let result
+  if (parent) {
+    query.parent = parent
+    const member = categories.find((i) => i.parent == query.parent)
+    result = member ? [member] : []
+  } else {
+    query.parent = undefined
+    result = categories.filter((i) => i.parent == query.parent)
+  }
+
+  return result.sort((a, b) => {
+    if (a < b) return -1
+    if (a > b) return 1
+    return 0
+  })
+}
+
+function getHtm() {
+  const depth = 3
+  const hierarchicalList = (level, parent?) => {
+    let result = ''
+
+    prepareQuery(categorys, parent).forEach((cat, i) => {
+      let child
+      if (level + 1 < depth) {
+        child = hierarchicalList(level + 1, cat.id)
+      }
+      let catname = `<a itemprop="url" href=/categories/${cat.path}>${cat.name}</a><small>( ${getLength(cat)} )</small>`
+      switch (level) {
+        case 0:
+          result += `<div><h2 class="item header">${catname}</h2>`
+          break
+        case 1:
+          result += `<h3 class="item section">${catname}</h3>`
+          break
+        case 2:
+          result += `<div class="item normal"><div class="title">${catname}</div></div>`
+          break
+      }
+
+      if (child) {
+        result += `${child}`
+      }
+
+      if (level === 0) {
+        result += '</div>'
+      }
+    })
+
+    return result
+  }
+
+  return hierarchicalList(0)
+}
+
+function categoryPrev() {
+  console.log(categorys, 'categorys')
+
+  let result = ''
+
+  categorys
+    .filter((i) => i.name === category)
+    .forEach((current) => {
+      if (current.parent) {
+        categorys
+          .filter((item) => item.id === current.parent)
+          .forEach((cat, i) => {
+            result += `<a href="/categories/${cat.path}">${cat.name}</a>`
+          })
+      }
+    })
+
+  return result
+}
+---
+
+<Common>
+  <div id="main" class="pjax">
+    <div class="collapse wrap">
+      {
+        !category ? (
+          <>
+            <h2 class="item title">
+              <a href="/">首页</a> <small>/</small> 目前共计 {categorys.length} 个分类
+            </h2>
+            <Fragment set:html={getHtm()} />
+          </>
+        ) : (
+          <h2 class="item header">
+            <a href="/categories">全部</a>
+            {Boolean(categoryPrev()) && (
+              <>
+                <small>/</small>
+                <Fragment set:html={categoryPrev()} />
+              </>
+            )}
+
+            <small>/</small>
+            {category}
+            <small>分类</small>
+          </h2>
+        )
+      }
+    </div>
+  </div>
+</Common>

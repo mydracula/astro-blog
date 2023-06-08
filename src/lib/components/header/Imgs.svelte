@@ -2,7 +2,6 @@
   let className = ''
   export { className as class }
   export let covers
-  console.log(covers)
 </script>
 
 <div id="imgs" class={className}>
